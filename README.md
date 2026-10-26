@@ -32,6 +32,7 @@
 - **前端开发者**：[`docs/getting-started.md`](docs/getting-started.md)——workspace / npm 安装、React 与纯 CSS 引入、主题、国际化、金额工具和验证命令。
 - **AI 编码代理**：[`docs/ai-integration.md`](docs/ai-integration.md)——上下文文件、持久项目规则、可复制的提示词、领域约束与验证闭环。
 - **在线版本**：[前端接入](https://nui3.pages.dev/#/docs/getting-started)、[AI 接入](https://nui3.pages.dev/#/docs/ai-integration) 与 [组件文档](https://nui3.pages.dev/#/docs)。
+- **维护者交接**：[`HANDOFF.md`](HANDOFF.md)——当前定位、目录结构、路由、验证、部署与后续事项。
 
 ## 快速开始
 
