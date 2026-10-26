@@ -10,6 +10,8 @@ Read AGENTS.md first: it contains hard rules (privacy wording, amounts as bigint
 - [docs/components.json](docs/components.json): every component with props, CSS class and example
 - [packages/tokens/src/tokens.json](packages/tokens/src/tokens.json): design tokens (DTCG), themes paper / night, contrast pairs
 - [README.md](README.md): install, theming, package layout
+- [docs/getting-started.md](docs/getting-started.md): frontend workspace/npm setup, React and CSS usage, themes, i18n and validation
+- [docs/ai-integration.md](docs/ai-integration.md): agent context, persistent rules, prompt templates and verification workflow
 
 ## Packages
 

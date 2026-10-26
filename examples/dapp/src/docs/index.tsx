@@ -4,6 +4,7 @@ import manifest from '../../../../docs/components.json';
 import { link } from '../products/meta';
 import { useT } from '../settings';
 import { demos } from './demos';
+import { GUIDES, GuideCards, GuidePage, type GuideId } from './guides';
 
 type Entry = (typeof manifest.components)[number];
 const groups = [...new Set(manifest.components.map((c) => c.group))];
@@ -14,6 +15,24 @@ function Sidebar({ current, onNavigate }: { current?: string; onNavigate?: () =>
   return (
     <div className="nui-stack" style={{ gap: 16 }}>
       <SearchInput label={t('Search components', '搜索组件')} value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ('')} shortcut={false} />
+      {(!q || Object.keys(GUIDES).some((id) => id.includes(q.toLowerCase()))) && (
+        <div>
+          <div className="nui-eyebrow" style={{ fontSize: 11, marginBottom: 8 }}>{t('Guides', '使用指南')}</div>
+          <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 2 }}>
+            {(Object.entries(GUIDES) as Array<[GuideId, (typeof GUIDES)[GuideId]]>).map(([id, guide]) => (
+              <li key={id}>
+                <a
+                  href={link('docs', id)}
+                  onClick={onNavigate}
+                  style={{ display: 'block', padding: '6px 10px', fontSize: 14, color: id === current ? 'var(--nui-accent-text)' : 'var(--nui-text-secondary)', borderLeft: id === current ? '2px solid var(--nui-accent)' : '2px solid transparent', textDecoration: 'none', background: id === current ? 'var(--nui-surface-sunken)' : undefined }}
+                >
+                  {t(guide.title, guide.zh)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {groups.map((g) => {
         const items = manifest.components.filter((c) => c.group === g && (!q || c.name.toLowerCase().includes(q.toLowerCase())));
         if (!items.length) return null;
@@ -47,8 +66,9 @@ function Index() {
       <Eyebrow>NUI3 · {manifest.components.length} {t('components', '个组件')}</Eyebrow>
       <Display size="s" style={{ margin: '14px 0' }}>{t('Build a Zcash app in an afternoon.', '一个下午搭出 Zcash 应用。')}</Display>
       <Lead>{t('Tokens, CSS and React components with themes, i18n and live-data primitives. Click any component for a live demo, props and usage.', '设计变量、CSS 与 React 组件，内置主题、国际化和实时数据原语。点击任意组件查看演示、属性和用法。')}</Lead>
+      <GuideCards />
       <div style={{ marginTop: 28 }}>
-        <CodeBlock language="bash" code={`pnpm add @nui3/react @nui3/css\n\n// app root\nimport '@nui3/css';\nimport { ThemeProvider, ToastProvider } from '@nui3/react';`} />
+        <CodeBlock language="bash" code={`git clone https://github.com/aidai524/NUI3.git\ncd NUI3 && pnpm install && pnpm build\n\n// app root\nimport '@nui3/css';\nimport { ThemeProvider, ToastProvider } from '@nui3/react';`} />
       </div>
       <Grid cols={3} style={{ marginTop: 32 }}>
         {groups.map((g) => (
@@ -117,6 +137,7 @@ export default function Docs({ path }: { path: string[] }) {
   const t = useT();
   const [navOpen, setNavOpen] = useState(false);
   const name = path[0] ? decodeURIComponent(path[0]) : undefined;
+  const guide = name && name in GUIDES ? name as GuideId : undefined;
   const entry = useMemo(() => manifest.components.find((c) => c.name === name), [name]);
   return (
     <Shell style={{ padding: '40px 0 96px' }}>
@@ -128,7 +149,7 @@ export default function Docs({ path }: { path: string[] }) {
           <div className="nui-docs-mobilebar" style={{ marginBottom: 20 }}>
             <Button variant="outline" size="sm" onClick={() => setNavOpen(true)}>{t('All components', '全部组件')}</Button>
           </div>
-          {entry ? <ComponentPage entry={entry} /> : <Index />}
+          {guide ? <GuidePage id={guide} /> : entry ? <ComponentPage entry={entry} /> : <Index />}
         </div>
       </div>
       <Drawer open={navOpen} onClose={() => setNavOpen(false)} title={t('Components', '组件')} side="left">

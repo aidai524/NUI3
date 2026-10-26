@@ -14,7 +14,15 @@ Zcash 生态 dApp 的 UI 库。视觉语言来自 z.cash（研究见 `../zcash-d
 | `@nui3/css` | `nui3.css`（字体 + tokens + 全局 base + 组件）、`components.css`（不带全局重置，适合嵌入）、自托管字体 |
 | `@nui3/react` | 99 个组件 / Hook 条目 + `units` / `address` / `memo` / `zip321` / `payments` 工具函数 |
 
+## 使用指南
+
+- **前端开发者**：[`docs/getting-started.md`](docs/getting-started.md)——workspace / npm 安装、React 与纯 CSS 引入、主题、国际化、金额工具和验证命令。
+- **AI 编码代理**：[`docs/ai-integration.md`](docs/ai-integration.md)——上下文文件、持久项目规则、可复制的提示词、领域约束与验证闭环。
+- **在线版本**：示例应用 `#/docs/getting-started` 与 `#/docs/ai-integration`。
+
 ## 快速开始
+
+当前尚未发布到 npm；本地开发请先执行 `pnpm install && pnpm build`，并通过 `workspace:*` 引用包。完整步骤见前端接入指南。
 
 ```tsx
 import '@nui3/css';
