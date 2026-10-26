@@ -1,0 +1,294 @@
+/* Zcash & DeFi: address, hash, amount, delta, token icon, token input,
+   token list, privacy / pool / chain badges, tx status, sync, memo, QR,
+   health meter, swap switcher. */
+@layer nui3.components {
+  /* ------------------------------------------------------------ address / hash */
+  .nui-address,
+  .nui-hash {
+    display: inline-flex; align-items: center; gap: 8px;
+    max-width: 100%;
+    min-width: 0;
+    font: 400 13px/1.4 var(--nui-font-mono);
+    color: var(--nui-text);
+    vertical-align: middle;
+  }
+  .nui-address__text,
+  .nui-hash__text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .nui-address--full .nui-address__text { white-space: normal; overflow-wrap: anywhere; word-break: break-all; }
+  .nui-address__type {
+    flex: none;
+    padding: 2px 5px;
+    border: 1px solid var(--nui-border);
+    font: 600 10px/1.2 var(--nui-font-sans);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nui-text-muted);
+  }
+  .nui-address[data-kind="unified"] .nui-address__type,
+  .nui-address[data-kind="sapling"] .nui-address__type { border-color: color-mix(in srgb, var(--nui-privacy-shielded) 50%, transparent); color: var(--nui-privacy-shielded); }
+  .nui-hash a { color: inherit; text-decoration: none; }
+  .nui-hash a:hover { color: var(--nui-accent-text); }
+
+  .nui-copy {
+    flex: none;
+    display: inline-grid; place-items: center;
+    width: 24px; height: 24px;
+    padding: 0;
+    border: 1px solid transparent;
+    background: none;
+    color: var(--nui-text-muted);
+    cursor: pointer;
+    transition: color var(--nui-dur-fast) var(--nui-ease), border-color var(--nui-dur-fast) var(--nui-ease);
+  }
+  .nui-copy:hover { color: var(--nui-text); border-color: var(--nui-border); }
+  .nui-copy[data-copied="true"] { color: var(--nui-positive); }
+
+  /* ------------------------------------------------------------ amount */
+  .nui-amount {
+    display: inline-flex; align-items: baseline; gap: 0.3em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .nui-amount__unit { font-size: 0.78em; font-weight: 500; color: var(--nui-text-muted); }
+  .nui-amount__fiat { margin-left: 0.4em; font-size: 0.85em; color: var(--nui-text-muted); }
+  .nui-amount--lg { font: 800 32px/1.1 var(--nui-font-sans); letter-spacing: -0.02em; }
+  .nui-amount--hidden .nui-amount__value { letter-spacing: 0.1em; }
+  .nui-amount--positive { color: var(--nui-positive); }
+  .nui-amount--negative { color: var(--nui-negative); }
+
+  .nui-delta { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .nui-delta--up { color: var(--nui-positive); }
+  .nui-delta--down { color: var(--nui-negative); }
+  .nui-delta--up::before { content: "▲ "; font-size: 0.7em; }
+  .nui-delta--down::before { content: "▼ "; font-size: 0.7em; }
+
+  /* ------------------------------------------------------------ token icon */
+  .nui-token-icon {
+    --_s: 24px;
+    flex: none;
+    display: inline-grid; place-items: center;
+    width: var(--_s); height: var(--_s);
+    border-radius: var(--nui-radius-pill);
+    background: var(--nui-surface-sunken);
+    border: 1px solid var(--nui-border);
+    overflow: hidden;
+    color: var(--nui-text-secondary);
+    font: 700 calc(var(--_s) * 0.42) / 1 var(--nui-font-sans);
+  }
+  .nui-token-icon img { width: 100%; height: 100%; object-fit: cover; }
+  .nui-token-icon--sm { --_s: 18px; }
+  .nui-token-icon--lg { --_s: 36px; }
+  .nui-token-icon--zec { background: var(--nui-color-gold); border-color: var(--nui-color-gold); color: var(--nui-color-white); }
+  .nui-token-pair { display: inline-flex; }
+  .nui-token-pair > .nui-token-icon + .nui-token-icon { margin-left: calc(var(--_s) * -0.3); box-shadow: 0 0 0 2px var(--nui-surface); }
+
+  .nui-token {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 600;
+  }
+  .nui-token__symbol { font-size: 15px; }
+  .nui-token__name { font-size: 12px; font-weight: 400; color: var(--nui-text-muted); }
+
+  /* ------------------------------------------------------------ token amount input (swap / bridge / lend) */
+  .nui-token-input {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    gap: 10px;
+    padding: 16px 18px;
+    border: 1px solid var(--nui-border);
+    border-radius: var(--nui-radius-base);
+    background: var(--nui-surface-sunken);
+    transition: border-color var(--nui-dur-fast) var(--nui-ease), box-shadow var(--nui-dur-fast) var(--nui-ease);
+  }
+  .nui-token-input:focus-within { border-color: var(--nui-border-focus); box-shadow: inset 0 -2px 0 var(--nui-accent); }
+  .nui-token-input[data-invalid="true"] { border-color: var(--nui-negative); }
+  .nui-token-input__top,
+  .nui-token-input__bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--nui-text-muted); }
+  .nui-token-input__label { font: 700 11px/1 var(--nui-font-sans); letter-spacing: var(--nui-ls-caps); text-transform: uppercase; }
+  .nui-token-input__main { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .nui-token-input__amount {
+    flex: 1; min-width: 0; width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--nui-text);
+    font: 600 30px/1.2 var(--nui-font-sans);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    outline: none;
+  }
+  .nui-token-input__amount::placeholder { color: var(--nui-text-decorative); }
+  .nui-token-input__amount[readonly] { cursor: default; }
+  .nui-token-input__balance { display: inline-flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
+  .nui-token-input__max {
+    padding: 2px 6px;
+    border: 1px solid var(--nui-border-strong);
+    background: none;
+    color: var(--nui-text);
+    font: 600 10px/1.2 var(--nui-font-sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .nui-token-input__max:hover { border-color: var(--nui-accent); }
+
+  .nui-token-select {
+    flex: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 40px;
+    padding: 0 12px 0 8px;
+    border: 1px solid var(--nui-border);
+    border-radius: var(--nui-radius-control);
+    background: var(--nui-surface);
+    color: var(--nui-text);
+    font: 600 15px/1 var(--nui-font-sans);
+    cursor: pointer;
+    transition: border-color var(--nui-dur-fast) var(--nui-ease);
+  }
+  .nui-token-select:hover { border-color: var(--nui-border-strong); }
+  .nui-token-select::after { content: ""; width: 6px; height: 6px; margin-left: 2px; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: translateY(-2px) rotate(45deg); }
+  .nui-token-select--empty { background: var(--nui-accent); border-color: var(--nui-accent); color: var(--nui-on-accent); padding-left: 14px; }
+
+  .nui-swap-switch {
+    display: grid; place-items: center;
+    width: 36px; height: 36px;
+    margin: -14px auto;
+    position: relative; z-index: 1;
+    border: 1px solid var(--nui-border);
+    border-radius: var(--nui-radius-control);
+    background: var(--nui-surface);
+    color: var(--nui-text);
+    cursor: pointer;
+    transition: transform var(--nui-dur) var(--nui-ease), border-color var(--nui-dur-fast) var(--nui-ease);
+  }
+  .nui-swap-switch:hover { transform: rotate(180deg); border-color: var(--nui-accent); }
+
+  /* ------------------------------------------------------------ token list (picker) */
+  .nui-token-list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+  .nui-token-list__item {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    background: none;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .nui-token-list__item:hover,
+  .nui-token-list__item[aria-selected="true"] { background: var(--nui-surface-sunken); }
+  .nui-token-list__item[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+  .nui-token-list__meta { margin-left: auto; text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--nui-text-secondary); }
+
+  /* ------------------------------------------------------------ privacy / pool / chain badges
+     Privacy levels are NOT interchangeable: shielded (Zcash shielded pool),
+     confidential (Noir confidential execution), public (transparent / external DeFi). */
+  .nui-privacy {
+    --_c: var(--nui-privacy-public);
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 22px;
+    padding: 0 8px 0 6px;
+    border: 1px solid color-mix(in srgb, var(--_c) 45%, transparent);
+    border-radius: var(--nui-radius-control);
+    color: var(--_c);
+    font: 600 var(--nui-fs-micro) / 1 var(--nui-font-sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .nui-privacy svg { flex: none; width: 12px; height: 12px; }
+  .nui-privacy[data-level="shielded"] { --_c: var(--nui-privacy-shielded); background: color-mix(in srgb, var(--_c) 10%, transparent); }
+  .nui-privacy[data-level="confidential"] { --_c: var(--nui-privacy-confidential); }
+  .nui-privacy[data-level="public"] { --_c: var(--nui-privacy-public); border-style: dashed; }
+
+  .nui-pool {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: 500 12px/1 var(--nui-font-sans);
+    color: var(--nui-text-secondary);
+    white-space: nowrap;
+  }
+  .nui-pool::before { content: ""; width: 8px; height: 8px; border-radius: var(--nui-radius-pill); background: var(--nui-privacy-public); }
+  .nui-pool[data-pool="orchard"]::before { background: var(--nui-privacy-shielded); }
+  .nui-pool[data-pool="sapling"]::before { background: transparent; box-shadow: inset 0 0 0 2px var(--nui-privacy-shielded); }
+  .nui-pool[data-pool="transparent"]::before { background: transparent; box-shadow: inset 0 0 0 1px var(--nui-privacy-public); }
+
+  .nui-chain {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: 500 13px/1 var(--nui-font-sans);
+    white-space: nowrap;
+  }
+
+  /* ------------------------------------------------------------ tx status */
+  .nui-tx-status {
+    --_c: var(--nui-text-muted);
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 500 13px/1 var(--nui-font-sans);
+    color: var(--_c);
+    white-space: nowrap;
+  }
+  .nui-tx-status::before { content: ""; width: 8px; height: 8px; border-radius: var(--nui-radius-pill); background: currentColor; }
+  .nui-tx-status[data-status="pending"],
+  .nui-tx-status[data-status="confirming"] { --_c: var(--nui-warning); }
+  .nui-tx-status[data-status="pending"]::before,
+  .nui-tx-status[data-status="confirming"]::before { animation: nui-pulse 1.4s var(--nui-ease) infinite; }
+  .nui-tx-status[data-status="confirmed"] { --_c: var(--nui-positive); }
+  .nui-tx-status[data-status="failed"],
+  .nui-tx-status[data-status="expired"] { --_c: var(--nui-negative); }
+  .nui-tx-status[data-status="refunded"] { --_c: var(--nui-info); }
+  @keyframes nui-pulse { 50% { opacity: 0.3; } }
+
+  /* ------------------------------------------------------------ sync progress */
+  .nui-sync { display: grid; gap: 8px; min-width: 200px; }
+  .nui-sync__row { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--nui-text-muted); font-variant-numeric: tabular-nums; }
+  .nui-sync__label { font-weight: 600; color: var(--nui-text); }
+
+  /* ------------------------------------------------------------ memo */
+  .nui-memo { position: relative; }
+  .nui-memo .nui-textarea { padding-bottom: 30px; font-family: var(--nui-font-mono); font-size: 13px; }
+  .nui-memo__count {
+    position: absolute; right: 12px; bottom: 10px;
+    font: 400 11px/1 var(--nui-font-mono);
+    color: var(--nui-text-muted);
+  }
+  .nui-memo__count[data-over="true"] { color: var(--nui-negative); }
+
+  /* ------------------------------------------------------------ QR */
+  .nui-qr {
+    display: inline-grid;
+    padding: 16px;
+    background: #fff; /* QR codes need a light quiet zone in every theme */
+    border: 1px solid var(--nui-border);
+  }
+  .nui-qr svg { width: var(--nui-qr-size, 200px); height: var(--nui-qr-size, 200px); }
+  .nui-qr__caption { margin-top: 10px; text-align: center; font: 500 11px/1.4 var(--nui-font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: #5c5357; }
+
+  /* ------------------------------------------------------------ health meter (lending / perps margin) */
+  .nui-health { display: grid; gap: 8px; }
+  .nui-health__row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .nui-health__label { font: 700 11px/1 var(--nui-font-sans); letter-spacing: var(--nui-ls-caps); text-transform: uppercase; color: var(--nui-text-muted); }
+  .nui-health__value { font: 800 20px/1 var(--nui-font-sans); font-variant-numeric: tabular-nums; }
+  .nui-health[data-zone="safe"] .nui-health__value { color: var(--nui-positive); }
+  .nui-health[data-zone="warning"] .nui-health__value { color: var(--nui-warning); }
+  .nui-health[data-zone="danger"] .nui-health__value { color: var(--nui-negative); }
+  .nui-health__track {
+    position: relative;
+    height: 6px;
+    background: linear-gradient(90deg, var(--nui-negative) 0 var(--nui-health-danger, 33%), var(--nui-warning) var(--nui-health-danger, 33%) var(--nui-health-warn, 50%), var(--nui-positive) var(--nui-health-warn, 50%) 100%);
+    opacity: 0.85;
+  }
+  .nui-health__marker {
+    position: absolute; top: -4px;
+    left: clamp(0%, calc(var(--nui-value, 0) * 1%), 100%);
+    width: 2px; height: 14px;
+    margin-left: -1px;
+    background: var(--nui-text);
+  }
+
+  /* ------------------------------------------------------------ detail rows (fee, route, slippage) */
+  .nui-detail-list { display: grid; gap: 8px; margin: 0; font-size: 13px; }
+  .nui-detail-list > div { display: flex; justify-content: space-between; gap: 16px; }
+  .nui-detail-list dt { color: var(--nui-text-muted); }
+  .nui-detail-list dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+}

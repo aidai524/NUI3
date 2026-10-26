@@ -1,0 +1,132 @@
+/* Foundation: typography, layout primitives, utilities shared by all components. */
+@layer nui3.components {
+  /* ------------------------------------------------------------ root scope
+     Apply .nui-root (or data-nui-theme) to a container when the global base
+     layer is not loaded, e.g. when embedding NUI3 inside another app. */
+  .nui-root {
+    background: var(--nui-bg);
+    color: var(--nui-text);
+    font: 400 var(--nui-fs-body) / var(--nui-lh-body) var(--nui-font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .nui-root *, .nui-root *::before, .nui-root *::after { box-sizing: border-box; }
+
+  /* ------------------------------------------------------------ typography */
+  .nui-display {
+    margin: 0;
+    font-family: var(--nui-font-display);
+    font-weight: 400;
+    font-size: var(--nui-fs-display-m);
+    line-height: var(--nui-lh-display);
+    letter-spacing: var(--nui-ls-display);
+    text-wrap: balance;
+    color: var(--nui-text);
+  }
+  .nui-display--xl { font-size: var(--nui-fs-display-xl); line-height: 1.2; letter-spacing: normal; }
+  .nui-display--l  { font-size: var(--nui-fs-display-l); letter-spacing: normal; }
+  .nui-display--s  { font-size: var(--nui-fs-display-s); line-height: 1.15; }
+
+  .nui-heading {
+    margin: 0;
+    font: 700 var(--nui-fs-h2) / var(--nui-lh-heading) var(--nui-font-sans);
+    text-wrap: balance;
+  }
+  .nui-heading--3 { font-size: var(--nui-fs-h3); line-height: 1.2; font-weight: 600; }
+  .nui-heading--4 { font-size: var(--nui-fs-h4); line-height: 1.3; font-weight: 600; }
+
+  /* Uppercase card title, matches z.cash ecosystem cards */
+  .nui-title {
+    margin: 0;
+    font: 500 var(--nui-fs-h3) / 28px var(--nui-font-sans);
+    letter-spacing: var(--nui-ls-title);
+    text-transform: uppercase;
+  }
+
+  .nui-eyebrow {
+    margin: 0;
+    font: 700 var(--nui-fs-label) / 1.4 var(--nui-font-sans);
+    letter-spacing: var(--nui-ls-caps);
+    text-transform: uppercase;
+    color: var(--nui-text-muted);
+  }
+  .nui-eyebrow--accent { color: var(--nui-accent-text); }
+
+  .nui-lead {
+    margin: 0;
+    max-width: 52ch;
+    font-size: var(--nui-fs-lead);
+    line-height: 1.72;
+    color: var(--nui-text-secondary);
+  }
+
+  .nui-prose { max-width: 65ch; line-height: var(--nui-lh-body); }
+  .nui-prose > * + * { margin-top: 1em; }
+
+  .nui-text-secondary { color: var(--nui-text-secondary); }
+  .nui-text-muted { color: var(--nui-text-muted); }
+  .nui-text-small { font-size: var(--nui-fs-small); line-height: var(--nui-lh-ui); }
+  .nui-mono { font-family: var(--nui-font-mono); font-size: 0.92em; letter-spacing: 0; }
+  .nui-num { font-variant-numeric: tabular-nums; }
+
+  .nui-link {
+    color: inherit;
+    text-decoration: none;
+    background: linear-gradient(var(--nui-accent), var(--nui-accent)) 0 100% / 100% 1px no-repeat;
+    padding-bottom: 2px;
+    transition: background-size var(--nui-dur) var(--nui-ease), color var(--nui-dur-fast) var(--nui-ease);
+  }
+  .nui-link:hover { background-size: 100% 2px; }
+
+  .nui-sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  /* ------------------------------------------------------------ layout */
+  .nui-shell {
+    width: min(100% - 2 * var(--nui-gutter), var(--nui-container));
+    margin-inline: auto;
+  }
+
+  .nui-section { padding-block: var(--nui-section-y); }
+  .nui-section--inverse { background: var(--nui-inverse-bg); color: var(--nui-inverse-text); }
+  .nui-section--inverse .nui-display,
+  .nui-section--inverse .nui-heading { color: inherit; }
+  .nui-section--inverse .nui-lead,
+  .nui-section--inverse .nui-text-secondary,
+  .nui-section--inverse .nui-eyebrow { color: var(--nui-inverse-text-secondary); }
+  .nui-section--inverse .nui-eyebrow--accent { color: var(--nui-inverse-accent-text); }
+  /* Brand dark blocks. One dark color per section; never stack navy next to plum. */
+  .nui-section--plum { background: var(--nui-color-plum); color: var(--nui-color-white); }
+  .nui-section--navy { background: var(--nui-color-navy); color: var(--nui-color-white); }
+  :is(.nui-section--plum, .nui-section--navy) :is(.nui-display, .nui-heading) { color: inherit; }
+  :is(.nui-section--plum, .nui-section--navy) :is(.nui-lead, .nui-eyebrow) { color: var(--nui-color-night-text-2); }
+  :is(.nui-section--plum, .nui-section--navy) .nui-eyebrow--accent { color: var(--nui-color-gold); }
+
+  .nui-stack { display: flex; flex-direction: column; gap: var(--nui-stack-gap, var(--nui-space-4)); }
+  .nui-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--nui-cluster-gap, var(--nui-space-3)); }
+
+  .nui-grid {
+    display: grid;
+    gap: var(--nui-grid-gap);
+    grid-template-columns: repeat(var(--nui-cols, 3), minmax(0, 1fr));
+  }
+  .nui-grid--1 { --nui-cols: 1; }
+  .nui-grid--2 { --nui-cols: 2; }
+  .nui-grid--3 { --nui-cols: 3; }
+  .nui-grid--4 { --nui-cols: 4; }
+  .nui-grid--auto { grid-template-columns: repeat(auto-fill, minmax(var(--nui-min, 280px), 1fr)); }
+  /* Column classes collapse on small screens (class beats class by order; never set --nui-cols inline). */
+  @media (max-width: 1080px) { .nui-grid:is(.nui-grid--3, .nui-grid--4) { --nui-cols: 2; } }
+  @media (max-width: 640px)  { .nui-grid:not(.nui-grid--auto) { --nui-cols: 1; } }
+
+  .nui-divider { height: 1px; border: 0; margin: 0; background: var(--nui-border); }
+
+  /* Shared reduced-motion guard, for apps that skip the base layer */
+  @media (prefers-reduced-motion: reduce) {
+    [class*="nui-"], [class*="nui-"]::before, [class*="nui-"]::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}

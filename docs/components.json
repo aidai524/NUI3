@@ -1,0 +1,1326 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "name": "NUI3",
+ "version": "0.1.0",
+ "packages": {
+  "@nui3/react": "React components + utils",
+  "@nui3/css": "CSS (nui-* classes) for any framework",
+  "@nui3/tokens": "Design tokens, themes, Tailwind preset"
+ },
+ "rules": "See AGENTS.md — hard rules override any example.",
+ "themes": [
+  "paper",
+  "night",
+  "auto"
+ ],
+ "density": [
+  "comfortable",
+  "compact"
+ ],
+ "components": [
+  {
+   "name": "ThemeProvider",
+   "group": "theme",
+   "description": "Scope a theme, density and token overrides to a subtree.",
+   "props": {
+    "theme": "'paper'|'night'|'auto'|string",
+    "density": "'comfortable'|'compact'",
+    "tokens": "TokenOverrides",
+    "root": "boolean = true"
+   },
+   "example": "<ThemeProvider theme=\"night\" tokens={{ accent: '#7ee0c3' }}>{app}</ThemeProvider>"
+  },
+  {
+   "name": "Display",
+   "group": "foundation",
+   "description": "Serif headline. Page/section titles only.",
+   "props": {
+    "as": "tag = h1",
+    "size": "'xl'|'l'|'m'|'s'"
+   },
+   "example": "<Display size=\"l\">Stay shielded.</Display>",
+   "cssClass": "nui-display"
+  },
+  {
+   "name": "Heading",
+   "group": "foundation",
+   "description": "Inter bold heading.",
+   "props": {
+    "level": "2|3|4"
+   },
+   "example": "<Heading level={3}>Pools</Heading>",
+   "cssClass": "nui-heading"
+  },
+  {
+   "name": "Eyebrow",
+   "group": "foundation",
+   "description": "Uppercase label above a headline.",
+   "props": {
+    "accent": "boolean"
+   },
+   "example": "<Eyebrow>Bridge</Eyebrow>",
+   "cssClass": "nui-eyebrow"
+  },
+  {
+   "name": "Lead",
+   "group": "foundation",
+   "description": "Intro paragraph, max 52ch.",
+   "props": {},
+   "example": "<Lead>Move ZEC across chains.</Lead>",
+   "cssClass": "nui-lead"
+  },
+  {
+   "name": "Shell",
+   "group": "foundation",
+   "description": "Centered max-width container.",
+   "props": {
+    "as": "tag"
+   },
+   "example": "<Shell>…</Shell>",
+   "cssClass": "nui-shell"
+  },
+  {
+   "name": "Section",
+   "group": "foundation",
+   "description": "Vertical page section. One dark tone per section.",
+   "props": {
+    "tone": "'default'|'inverse'|'plum'|'navy'",
+    "contained": "boolean = true"
+   },
+   "example": "<Section tone=\"plum\">…</Section>",
+   "cssClass": "nui-section"
+  },
+  {
+   "name": "Stack",
+   "group": "foundation",
+   "description": "Vertical flex with gap.",
+   "props": {
+    "gap": "space step"
+   },
+   "example": "<Stack gap={6}>…</Stack>",
+   "cssClass": "nui-stack"
+  },
+  {
+   "name": "Cluster",
+   "group": "foundation",
+   "description": "Horizontal wrapping row.",
+   "props": {
+    "gap": "space step",
+    "justify": "CSS justify-content"
+   },
+   "example": "<Cluster justify=\"space-between\">…</Cluster>",
+   "cssClass": "nui-cluster"
+  },
+  {
+   "name": "Grid",
+   "group": "foundation",
+   "description": "Responsive grid: 3→2→1 columns.",
+   "props": {
+    "cols": "1|2|3|4|'auto'",
+    "min": "string (auto)"
+   },
+   "example": "<Grid cols={3}>{cards}</Grid>",
+   "cssClass": "nui-grid"
+  },
+  {
+   "name": "Button",
+   "group": "actions",
+   "description": "Button or link. ghost default; solid = the one primary action per view.",
+   "props": {
+    "variant": "'ghost'|'solid'|'outline'|'subtle'|'underline'|'danger'|'invert'",
+    "size": "'sm'|'md'|'lg'",
+    "block": "boolean",
+    "arrow": "boolean",
+    "loading": "boolean",
+    "href": "string → renders <a>"
+   },
+   "example": "<Button variant=\"solid\" block>Review swap</Button>",
+   "cssClass": "nui-btn"
+  },
+  {
+   "name": "IconButton",
+   "group": "actions",
+   "description": "Icon-only button. label is required.",
+   "props": {
+    "label": "string",
+    "size": "'sm'|'md'"
+   },
+   "example": "<IconButton label=\"Close\"><CloseIcon/></IconButton>",
+   "cssClass": "nui-icon-btn"
+  },
+  {
+   "name": "ChipGroup",
+   "group": "actions",
+   "description": "Single-select filter row with arrow-key navigation.",
+   "props": {
+    "options": "Option[]",
+    "value": "string",
+    "onChange": "(v) => void",
+    "aria-label": "string"
+   },
+   "example": "<ChipGroup aria-label=\"Category\" options={cats} value={cat} onChange={setCat}/>",
+   "cssClass": "nui-chips"
+  },
+  {
+   "name": "Tabs",
+   "group": "actions",
+   "description": "Tablist; pair with TabPanel.",
+   "props": {
+    "items": "Option[]",
+    "value": "string",
+    "onChange": "fn",
+    "id": "string"
+   },
+   "example": "<Tabs id=\"t\" aria-label=\"View\" items={items} value={v} onChange={setV}/>",
+   "cssClass": "nui-tabs"
+  },
+  {
+   "name": "Segmented",
+   "group": "actions",
+   "description": "Compact radio group (Long/Short, Market/Limit, 1D/1W).",
+   "props": {
+    "options": "Option[]",
+    "value": "string",
+    "onChange": "fn"
+   },
+   "example": "<Segmented aria-label=\"Side\" options={[{value:'long',label:'Long'},{value:'short',label:'Short'}]} value={side} onChange={setSide}/>",
+   "cssClass": "nui-segmented"
+  },
+  {
+   "name": "Field",
+   "group": "forms",
+   "description": "Label + hint + error wrapper; auto-wires ids/aria to its control.",
+   "props": {
+    "label": "ReactNode",
+    "labelAside": "ReactNode",
+    "hint": "ReactNode",
+    "error": "ReactNode",
+    "hideLabel": "boolean"
+   },
+   "example": "<Field label=\"Recipient\" error={err}><Input mono/></Field>",
+   "cssClass": "nui-field"
+  },
+  {
+   "name": "Input",
+   "group": "forms",
+   "description": "Text input.",
+   "props": {
+    "mono": "boolean"
+   },
+   "example": "<Input placeholder=\"u1…\" mono/>",
+   "cssClass": "nui-input"
+  },
+  {
+   "name": "Textarea",
+   "group": "forms",
+   "description": "Multiline input.",
+   "props": {},
+   "example": "<Textarea rows={4}/>",
+   "cssClass": "nui-textarea"
+  },
+  {
+   "name": "Select",
+   "group": "forms",
+   "description": "Native select.",
+   "props": {},
+   "example": "<Select><option>Zcash</option></Select>",
+   "cssClass": "nui-select"
+  },
+  {
+   "name": "InputGroup",
+   "group": "forms",
+   "description": "Input with start/end addons.",
+   "props": {
+    "start": "ReactNode",
+    "end": "ReactNode"
+   },
+   "example": "<InputGroup end=\"%\" value={slippage}/>",
+   "cssClass": "nui-input-group"
+  },
+  {
+   "name": "SearchInput",
+   "group": "forms",
+   "description": "Underline search with '/' shortcut and Escape to clear.",
+   "props": {
+    "label": "string",
+    "shortcut": "boolean",
+    "onClear": "fn"
+   },
+   "example": "<SearchInput label=\"Search\" value={q} onChange={e=>setQ(e.target.value)}/>",
+   "cssClass": "nui-search"
+  },
+  {
+   "name": "Switch",
+   "group": "forms",
+   "description": "Toggle switch.",
+   "props": {
+    "checked": "boolean",
+    "onChange": "fn",
+    "label": "ReactNode"
+   },
+   "example": "<Switch label=\"Hide balances\" checked={h} onChange={setH}/>",
+   "cssClass": "nui-switch"
+  },
+  {
+   "name": "Checkbox",
+   "group": "forms",
+   "description": "Checkbox with label.",
+   "props": {
+    "label": "ReactNode"
+   },
+   "example": "<Checkbox label=\"I understand the risks\"/>",
+   "cssClass": "nui-check"
+  },
+  {
+   "name": "ZcashMark",
+   "group": "navigation",
+   "description": "Official Zcash mark. Do not recolor; link to https://z.cash/.",
+   "props": {
+    "size": "number",
+    "variant": "'color'|'mono'",
+    "title": "string"
+   },
+   "example": "<ZcashMark size={24}/>"
+  },
+  {
+   "name": "Brand",
+   "group": "navigation",
+   "description": "Product logo lockup. Name must not contain 'Zcash'.",
+   "props": {
+    "name": "ReactNode",
+    "logo": "ReactNode",
+    "sub": "ReactNode",
+    "href": "string"
+   },
+   "example": "<Brand name=\"Noir\" sub=\"Bridge\"/>",
+   "cssClass": "nui-brand"
+  },
+  {
+   "name": "Header",
+   "group": "navigation",
+   "description": "Top bar with brand, dropdown nav groups, actions and a mobile drawer.",
+   "props": {
+    "brand": "ReactNode",
+    "nav": "NavItem[] (children => dropdown group)",
+    "actions": "ReactNode",
+    "sticky": "boolean",
+    "bordered": "boolean",
+    "renderLink": "router adapter",
+    "mobileActions": "ReactNode",
+    "menuLabel": "string"
+   },
+   "example": "<Header brand={<Brand name=\"Noir\"/>} nav={nav} actions={<Button variant=\"outline\" size=\"sm\">Connect</Button>}/>",
+   "cssClass": "nui-header"
+  },
+  {
+   "name": "Breadcrumb",
+   "group": "navigation",
+   "description": "Breadcrumb trail.",
+   "props": {
+    "items": "{label, href?}[]"
+   },
+   "example": "<Breadcrumb items={[{label:'Explorer',href:'/'},{label:'Tx'}]}/>",
+   "cssClass": "nui-breadcrumb"
+  },
+  {
+   "name": "Footer",
+   "group": "navigation",
+   "description": "Footer with columns; always renders the trademark disclaimer.",
+   "props": {
+    "columns": "FooterColumn[]",
+    "tagline": "ReactNode",
+    "legal": "ReactNode",
+    "disclaimer": "ReactNode (reword, not remove)"
+   },
+   "example": "<Footer columns={cols} legal=\"© 2026 Noir\"/>",
+   "cssClass": "nui-footer"
+  },
+  {
+   "name": "Card",
+   "group": "surfaces",
+   "description": "Bordered surface. interactive = gold hover rule.",
+   "props": {
+    "interactive": "boolean",
+    "as": "tag"
+   },
+   "example": "<Card interactive>…</Card>",
+   "cssClass": "nui-card"
+  },
+  {
+   "name": "ProjectCard",
+   "group": "surfaces",
+   "description": "Directory card (z.cash ecosystem style), whole card clickable.",
+   "props": {
+    "name": "string",
+    "description": "ReactNode",
+    "href": "string",
+    "tags": "string[]",
+    "logo": "ReactNode",
+    "index": "number"
+   },
+   "example": "<ProjectCard name=\"Zodl\" href=\"https://zodl.com\" tags={['wallets']}/>",
+   "cssClass": "nui-card"
+  },
+  {
+   "name": "Panel",
+   "group": "surfaces",
+   "description": "App widget container with header/footer.",
+   "props": {
+    "title": "ReactNode",
+    "actions": "ReactNode",
+    "footer": "ReactNode",
+    "sunken": "boolean",
+    "flush": "boolean"
+   },
+   "example": "<Panel title=\"Swap\" actions={<PrivacyBadge level=\"confidential\"/>}>…</Panel>",
+   "cssClass": "nui-panel"
+  },
+  {
+   "name": "Stats",
+   "group": "surfaces",
+   "description": "KPI bar (<dl>). divided = z.cash data bar.",
+   "props": {
+    "divided": "boolean"
+   },
+   "example": "<Stats divided><Stat label=\"TVL\" value=\"48.2\" unit=\"M\"/></Stats>",
+   "cssClass": "nui-stats"
+  },
+  {
+   "name": "Stat",
+   "group": "surfaces",
+   "description": "Single KPI: label, big tabular number, optional delta.",
+   "props": {
+    "label": "ReactNode",
+    "value": "ReactNode",
+    "unit": "ReactNode",
+    "delta": "ReactNode",
+    "size": "'md'|'sm'"
+   },
+   "example": "<Stat label=\"ZEC price\" value=\"$951.63\" delta={<PriceChange value={2.4}/>}/>",
+   "cssClass": "nui-stat"
+  },
+  {
+   "name": "Badge",
+   "group": "surfaces",
+   "description": "Small status label.",
+   "props": {
+    "tone": "'neutral'|'positive'|'negative'|'warning'|'info'|'accent'",
+    "dot": "boolean",
+    "solid": "boolean"
+   },
+   "example": "<Badge tone=\"positive\" dot>Active</Badge>",
+   "cssClass": "nui-badge"
+  },
+  {
+   "name": "Alert",
+   "group": "surfaces",
+   "description": "Inline notice; required for risk disclosures.",
+   "props": {
+    "tone": "'info'|'positive'|'negative'|'warning'|'shielded'",
+    "title": "ReactNode",
+    "action": "ReactNode"
+   },
+   "example": "<Alert tone=\"warning\" title=\"Liquidation risk\">…</Alert>",
+   "cssClass": "nui-alert"
+  },
+  {
+   "name": "DataTable",
+   "group": "surfaces",
+   "description": "Sortable table with sticky header and loading skeleton.",
+   "props": {
+    "columns": "Column[] {key, header, cell, numeric?, sortValue?}",
+    "rows": "Row[]",
+    "rowKey": "fn",
+    "loading": "boolean",
+    "empty": "ReactNode",
+    "onRowClick": "fn",
+    "defaultSort": "{key, direction}"
+   },
+   "example": "<DataTable columns={cols} rows={txs} rowKey={r=>r.hash}/>",
+   "cssClass": "nui-table"
+  },
+  {
+   "name": "KeyValue",
+   "group": "surfaces",
+   "description": "Label/value detail list.",
+   "props": {
+    "items": "{label, value}[]",
+    "alignLeft": "boolean"
+   },
+   "example": "<KeyValue items={[{label:'Fee',value:'0.0001 ZEC'}]}/>",
+   "cssClass": "nui-kv"
+  },
+  {
+   "name": "Stepper",
+   "group": "surfaces",
+   "description": "Multi-step progress.",
+   "props": {
+    "steps": "{title, description?, state: 'pending'|'active'|'complete'|'error'}[]",
+    "orientation": "'vertical'|'horizontal'"
+   },
+   "example": "<Stepper steps={steps}/>",
+   "cssClass": "nui-stepper"
+  },
+  {
+   "name": "Progress",
+   "group": "surfaces",
+   "description": "Progress bar; omit value for indeterminate.",
+   "props": {
+    "value": "0-100",
+    "label": "string"
+   },
+   "example": "<Progress label=\"Uploading\" value={40}/>",
+   "cssClass": "nui-progress"
+  },
+  {
+   "name": "Skeleton",
+   "group": "surfaces",
+   "description": "Loading placeholder.",
+   "props": {
+    "width": "CSS",
+    "height": "CSS"
+   },
+   "example": "<Skeleton width={120}/>",
+   "cssClass": "nui-skeleton"
+  },
+  {
+   "name": "EmptyState",
+   "group": "surfaces",
+   "description": "No-results block.",
+   "props": {
+    "title": "ReactNode",
+    "hint": "ReactNode",
+    "action": "ReactNode"
+   },
+   "example": "<EmptyState title=\"Nothing matches.\" action={<Button>Clear filters</Button>}/>",
+   "cssClass": "nui-empty"
+  },
+  {
+   "name": "Dialog",
+   "group": "overlays",
+   "description": "Modal on native <dialog>.",
+   "props": {
+    "open": "boolean",
+    "onClose": "fn",
+    "title": "ReactNode",
+    "footer": "ReactNode",
+    "width": "number",
+    "dismissible": "boolean = true"
+   },
+   "example": "<Dialog open={o} onClose={close} title=\"Confirm swap\" footer={<Button variant=\"solid\">Confirm</Button>}>…</Dialog>",
+   "cssClass": "nui-dialog"
+  },
+  {
+   "name": "ToastProvider / useToast",
+   "group": "overlays",
+   "description": "Notifications. Wrap app once; call toast().",
+   "props": {
+    "toast": "({title, description?, tone?, duration?, action?}) => id",
+    "dismiss": "(id) => void"
+   },
+   "example": "const { toast } = useToast(); toast({ title: 'Swap submitted', tone: 'positive' })",
+   "cssClass": "nui-toast"
+  },
+  {
+   "name": "Address",
+   "group": "zcash",
+   "description": "Zcash address with type tag (Unified/Sapling/Transparent/TEX), truncation and copy.",
+   "props": {
+    "address": "string",
+    "truncate": "[head, tail] | false",
+    "copyable": "boolean",
+    "showKind": "boolean",
+    "href": "string"
+   },
+   "example": "<Address address={ua}/>",
+   "cssClass": "nui-address"
+  },
+  {
+   "name": "Hash",
+   "group": "zcash",
+   "description": "Tx id / block hash with copy and explorer link.",
+   "props": {
+    "value": "string",
+    "href": "string",
+    "truncate": "[head, tail] | false"
+   },
+   "example": "<Hash value={txid} href={`/tx/${txid}`}/>",
+   "cssClass": "nui-hash"
+  },
+  {
+   "name": "CopyButton / useCopy",
+   "group": "zcash",
+   "description": "Clipboard button and hook.",
+   "props": {
+    "value": "string",
+    "label": "string"
+   },
+   "example": "<CopyButton value={uri}/>",
+   "cssClass": "nui-copy"
+  },
+  {
+   "name": "Amount",
+   "group": "zcash",
+   "description": "Token amount from bigint base units. Never shows dust as 0.",
+   "props": {
+    "value": "bigint|string|number (base units)",
+    "decimals": "number = 8",
+    "symbol": "string|null = 'ZEC'",
+    "exact": "boolean",
+    "fiat": "number",
+    "hidden": "boolean",
+    "sign": "'auto'|'none'",
+    "size": "'md'|'lg'"
+   },
+   "example": "<Amount value={123450000n} fiat={117.4}/>",
+   "cssClass": "nui-amount"
+  },
+  {
+   "name": "PriceChange",
+   "group": "zcash",
+   "description": "Percent change with ▲/▼ color.",
+   "props": {
+    "value": "number (percent)"
+   },
+   "example": "<PriceChange value={-1.2}/>",
+   "cssClass": "nui-delta"
+  },
+  {
+   "name": "PrivacyBadge",
+   "group": "zcash",
+   "description": "Canonical privacy level: shielded / confidential / public. See PRIVACY_LEVELS.",
+   "props": {
+    "level": "'shielded'|'confidential'|'public'",
+    "label": "string",
+    "describe": "boolean = true"
+   },
+   "example": "<PrivacyBadge level=\"shielded\"/>",
+   "cssClass": "nui-privacy"
+  },
+  {
+   "name": "PoolBadge",
+   "group": "zcash",
+   "description": "Zcash value pool indicator.",
+   "props": {
+    "pool": "'orchard'|'sapling'|'transparent'"
+   },
+   "example": "<PoolBadge pool=\"orchard\"/>",
+   "cssClass": "nui-pool"
+  },
+  {
+   "name": "ChainBadge",
+   "group": "zcash",
+   "description": "Chain/network label with icon.",
+   "props": {
+    "name": "string",
+    "icon": "ReactNode"
+   },
+   "example": "<ChainBadge name=\"NEAR\"/>",
+   "cssClass": "nui-chain"
+  },
+  {
+   "name": "TokenIcon / TokenPair",
+   "group": "zcash",
+   "description": "Round token logo with letter fallback; ZEC renders gold.",
+   "props": {
+    "symbol": "string",
+    "src": "string",
+    "size": "'sm'|'md'|'lg'"
+   },
+   "example": "<TokenPair base={{symbol:'ZEC'}} quote={{symbol:'USDC'}}/>",
+   "cssClass": "nui-token-icon"
+  },
+  {
+   "name": "TxStatus",
+   "group": "zcash",
+   "description": "Transaction state with live region.",
+   "props": {
+    "status": "'pending'|'confirming'|'confirmed'|'failed'|'expired'|'refunded'",
+    "confirmations": "number",
+    "required": "number"
+   },
+   "example": "<TxStatus status=\"confirming\" confirmations={3} required={10}/>",
+   "cssClass": "nui-tx-status"
+  },
+  {
+   "name": "SyncProgress",
+   "group": "zcash",
+   "description": "Light-wallet scan progress.",
+   "props": {
+    "height": "number",
+    "tip": "number",
+    "from": "number",
+    "eta": "string"
+   },
+   "example": "<SyncProgress height={h} tip={tip} from={birthday}/>",
+   "cssClass": "nui-sync"
+  },
+  {
+   "name": "MemoInput",
+   "group": "zcash",
+   "description": "Encrypted memo with 512-byte counter; disabled for transparent recipients.",
+   "props": {
+    "value": "string",
+    "onChange": "fn",
+    "recipient": "string",
+    "maxBytes": "number = 512"
+   },
+   "example": "<Field label=\"Memo\"><MemoInput value={m} onChange={setM} recipient={to}/></Field>",
+   "cssClass": "nui-memo"
+  },
+  {
+   "name": "ReceiveQR",
+   "group": "zcash",
+   "description": "QR for an address or ZIP-321 URI.",
+   "props": {
+    "value": "string",
+    "size": "number",
+    "caption": "ReactNode"
+   },
+   "example": "<ReceiveQR value={buildPaymentUri({ address, amount: '0.5' })}/>",
+   "cssClass": "nui-qr"
+  },
+  {
+   "name": "TokenAmountInput",
+   "group": "defi",
+   "description": "Amount + token selector + balance/MAX. Core of Swap/Bridge/Lend/Perps.",
+   "props": {
+    "value": "decimal string",
+    "onChange": "fn (sanitized)",
+    "token": "TokenInfo",
+    "onTokenClick": "fn",
+    "label": "ReactNode",
+    "aside": "ReactNode",
+    "fiat": "ReactNode",
+    "onMax": "(decimal string) => void",
+    "readOnly": "boolean",
+    "invalid": "boolean"
+   },
+   "example": "<TokenAmountInput label=\"You pay\" value={v} onChange={setV} token={zec} onTokenClick={open} onMax={setV}/>",
+   "cssClass": "nui-token-input"
+  },
+  {
+   "name": "TokenPicker",
+   "group": "defi",
+   "description": "Searchable token selection dialog.",
+   "props": {
+    "open": "boolean",
+    "onClose": "fn",
+    "tokens": "TokenInfo[]",
+    "onSelect": "fn",
+    "selected": "TokenInfo",
+    "disabled": "TokenInfo[]",
+    "popular": "TokenInfo[]"
+   },
+   "example": "<TokenPicker open={o} onClose={close} tokens={list} onSelect={setToken}/>",
+   "cssClass": "nui-token-list"
+  },
+  {
+   "name": "SwapSwitch",
+   "group": "defi",
+   "description": "Flip button between two token inputs.",
+   "props": {
+    "onClick": "fn"
+   },
+   "example": "<SwapSwitch onClick={flip}/>",
+   "cssClass": "nui-swap-switch"
+  },
+  {
+   "name": "HealthFactor",
+   "group": "defi",
+   "description": "Lending health / margin meter with zones.",
+   "props": {
+    "value": "number (Infinity = no debt)",
+    "liquidation": "number = 1",
+    "warning": "number = 1.5",
+    "max": "number = 3"
+   },
+   "example": "<HealthFactor value={1.42}/>",
+   "cssClass": "nui-health"
+  },
+  {
+   "name": "DetailList",
+   "group": "defi",
+   "description": "Compact rate/fee/route rows under a form.",
+   "props": {
+    "items": "{label, value}[]"
+   },
+   "example": "<DetailList items={[{label:'Fee',value:'0.30%'}]}/>",
+   "cssClass": "nui-detail-list"
+  },
+  {
+   "name": "LocaleProvider / useNuiLocale",
+   "group": "i18n",
+   "description": "Localize every built-in string and number format. `en` and `zh` packs included; override any message.",
+   "props": {
+    "locale": "string BCP-47 ('en'|'zh'|…)",
+    "base": "NuiMessages",
+    "messages": "Partial<NuiMessages>",
+    "useNuiLocale()": "{ locale, m }"
+   },
+   "example": "<LocaleProvider locale=\"zh\">{app}</LocaleProvider>"
+  },
+  {
+   "name": "TabPanel",
+   "group": "actions",
+   "description": "Panel controlled by Tabs.",
+   "props": {
+    "tabsId": "string",
+    "value": "string",
+    "active": "boolean"
+   },
+   "example": "<TabPanel tabsId=\"t\" value=\"a\" active={v==='a'}>…</TabPanel>"
+  },
+  {
+   "name": "LineChart",
+   "group": "charts",
+   "description": "SVG line/area chart with hover tooltip, keyboard access, reference lines and markers.",
+   "props": {
+    "series": "{name, data:number[], color?, area?, dashed?}[]",
+    "labels": "string[]",
+    "label": "string (accessible)",
+    "height": "number",
+    "yFormat": "(v)=>string",
+    "referenceY": "{value,label?}[]",
+    "referenceX": "{index,label?}[]",
+    "markers": "{index,series?,label?}[]",
+    "curve": "'linear'|'step'",
+    "legend": "boolean",
+    "yMin/yMax": "number"
+   },
+   "example": "<LineChart label=\"TVL\" series={[{name:'TVL',data,area:true}]} labels={days}/>",
+   "cssClass": "nui-chart"
+  },
+  {
+   "name": "PriceChart",
+   "group": "charts",
+   "description": "Time-series adapter for { t, value } price or probability points; use CandleChart for OHLCV data.",
+   "props": {
+    "data": "PricePoint[] {t,value}",
+    "label": "string (accessible)",
+    "name": "string (tooltip series name)",
+    "priceFormat": "(v)=>string",
+    "area": "boolean = true",
+    "color": "CSS color",
+    "height": "number = 240",
+    "referenceY/referenceX": "LineChart reference lines",
+    "markers": "LineChart markers"
+   },
+   "example": "<PriceChart label=\"Yes probability\" data={[{t:'09:00',value:0.42},{t:'10:00',value:0.63}]} priceFormat={v=>`${v*100}%`}/>",
+   "cssClass": "nui-chart"
+  },
+  {
+   "name": "CandleChart",
+   "group": "charts",
+   "description": "OHLCV candlestick chart with volume, OHLC readout, last-price tag and crosshair.",
+   "props": {
+    "candles": "Candle[] {t,o,h,l,c,v?}",
+    "label": "string",
+    "lastPrice": "number",
+    "volume": "boolean = true",
+    "height": "number = 320"
+   },
+   "example": "<CandleChart label=\"ZEC-PERP\" candles={candles} lastPrice={price}/>",
+   "cssClass": "nui-chart"
+  },
+  {
+   "name": "BarChart",
+   "group": "charts",
+   "description": "Bar chart with optional sign-based coloring.",
+   "props": {
+    "data": "{label,value,color?}[]",
+    "label": "string",
+    "signed": "boolean",
+    "yFormat": "fn"
+   },
+   "example": "<BarChart label=\"Funding\" signed data={rows}/>",
+   "cssClass": "nui-chart"
+  },
+  {
+   "name": "DonutChart",
+   "group": "charts",
+   "description": "Donut with center content and legend.",
+   "props": {
+    "data": "{label,value,color?}[]",
+    "label": "string",
+    "center": "ReactNode",
+    "size": "number = 168",
+    "thickness": "number = 18",
+    "legend": "boolean = true"
+   },
+   "example": "<DonutChart label=\"Pools\" data={shares} center={<strong>31.2%</strong>}/>",
+   "cssClass": "nui-donut"
+  },
+  {
+   "name": "DepthChart",
+   "group": "charts",
+   "description": "Cumulative bid/ask depth for a market.",
+   "props": {
+    "bids": "[price,size][] best first",
+    "asks": "[price,size][] best first",
+    "label": "string",
+    "priceFormat": "fn"
+   },
+   "example": "<DepthChart label=\"Depth\" bids={bids} asks={asks}/>",
+   "cssClass": "nui-chart"
+  },
+  {
+   "name": "BondingCurve",
+   "group": "charts",
+   "description": "Launch curve: dashed full curve, filled sold portion, current-supply marker.",
+   "props": {
+    "price": "(supply)=>number",
+    "maxSupply": "number",
+    "sold": "number",
+    "label": "string",
+    "priceFormat": "fn",
+    "supplyFormat": "fn",
+    "nowLabel": "string"
+   },
+   "example": "<BondingCurve label=\"Curve\" price={p} maxSupply={1e6} sold={420000}/>",
+   "cssClass": "nui-chart"
+  },
+  {
+   "name": "BondingCurveChart",
+   "group": "charts",
+   "description": "Roadmap-compatible alias of BondingCurve for LaunchPad curves.",
+   "props": {
+    "price": "(supply)=>number",
+    "maxSupply": "number",
+    "sold": "number",
+    "label": "string",
+    "priceFormat": "fn",
+    "supplyFormat": "fn",
+    "nowLabel": "string"
+   },
+   "example": "<BondingCurveChart label=\"Curve\" price={p} maxSupply={1e6} sold={420000}/>",
+   "cssClass": "nui-chart"
+  },
+  {
+   "name": "Sparkline",
+   "group": "charts",
+   "description": "Inline trend line; auto green/red by direction.",
+   "props": {
+    "data": "number[]",
+    "width": "number = 96",
+    "height": "number = 28",
+    "tone": "'auto'|'neutral'|'positive'|'negative'",
+    "area": "boolean = true"
+   },
+   "example": "<Sparkline data={history}/>",
+   "cssClass": "nui-sparkline"
+  },
+  {
+   "name": "Legend",
+   "group": "charts",
+   "description": "Color legend for custom chart compositions.",
+   "props": {
+    "items": "{label,color,value?}[]"
+   },
+   "example": "<Legend items={items}/>",
+   "cssClass": "nui-chart__legend"
+  },
+  {
+   "name": "OrderBook",
+   "group": "trading",
+   "description": "Two-sided order book with depth bars and spread; click a level to prefill a price.",
+   "props": {
+    "bids": "BookLevel[]",
+    "asks": "BookLevel[]",
+    "rows": "number = 8",
+    "priceDecimals": "number",
+    "last": "number",
+    "lastDirection": "'up'|'down'",
+    "onSelectPrice": "(p)=>void"
+   },
+   "example": "<OrderBook bids={bids} asks={asks} last={price} onSelectPrice={setPrice}/>",
+   "cssClass": "nui-book"
+  },
+  {
+   "name": "Slider",
+   "group": "forms",
+   "description": "Range slider with tick marks and token-based tone.",
+   "props": {
+    "value": "number",
+    "onChange": "fn",
+    "min/max/step": "number",
+    "marks": "number[]",
+    "format": "fn",
+    "label": "string",
+    "tone": "'accent'|'warning'|'negative'"
+   },
+   "example": "<Slider label=\"Royalty\" value={v} onChange={setV} max={10} marks={[0,5,10]} format={v=>v+'%'}/>",
+   "cssClass": "nui-slider"
+  },
+  {
+   "name": "LeverageSlider",
+   "group": "trading",
+   "description": "Leverage picker with value readout and risk tones.",
+   "props": {
+    "value": "number",
+    "onChange": "fn",
+    "max": "number = 50",
+    "warnAbove": "number = 10"
+   },
+   "example": "<LeverageSlider value={lev} onChange={setLev} max={20}/>",
+   "cssClass": "nui-leverage"
+  },
+  {
+   "name": "PnL",
+   "group": "trading",
+   "description": "Signed profit/loss with optional percent.",
+   "props": {
+    "value": "number",
+    "percent": "number",
+    "currency": "string = 'USD'"
+   },
+   "example": "<PnL value={120.5} percent={4.2}/>",
+   "cssClass": "nui-pnl"
+  },
+  {
+   "name": "PositionTable",
+   "group": "trading",
+   "description": "Perp positions table with side badges, liq price, PnL and close action.",
+   "props": {
+    "positions": "Position[]",
+    "onClose": "(p)=>void",
+    "priceDecimals": "number"
+   },
+   "example": "<PositionTable positions={positions} onClose={close}/>",
+   "cssClass": "nui-table"
+  },
+  {
+   "name": "LiveValue",
+   "group": "trading",
+   "description": "Number that flashes green/red when it changes.",
+   "props": {
+    "value": "number",
+    "format": "fn",
+    "colored": "boolean"
+   },
+   "example": "<LiveValue value={price} format={v=>'$'+v.toFixed(2)} colored/>",
+   "cssClass": "nui-live"
+  },
+  {
+   "name": "Countdown",
+   "group": "trading",
+   "description": "Live countdown to a timestamp; ends with localized 'Ended'.",
+   "props": {
+    "to": "number|Date",
+    "compact": "boolean = true",
+    "onEnd": "fn"
+   },
+   "example": "<Countdown to={endsAt}/>",
+   "cssClass": "nui-countdown"
+  },
+  {
+   "name": "Meter",
+   "group": "data",
+   "description": "Progress meter for quotas, raises, utilization; supports cap marks.",
+   "props": {
+    "value": "number",
+    "max": "number",
+    "label": "ReactNode",
+    "valueLabel": "ReactNode",
+    "marks": "{value,label}[]",
+    "tone": "'accent'|'positive'|'warning'|'negative'"
+   },
+   "example": "<Meter label=\"Raised\" value={62000} max={150000} marks={[{value:50000,label:'Soft cap'}]}/>",
+   "cssClass": "nui-meter"
+  },
+  {
+   "name": "UptimeBar",
+   "group": "data",
+   "description": "Per-day uptime strip for endpoints and routes.",
+   "props": {
+    "days": "{date,status:'operational'|'degraded'|'outage'|'none',note?}[]",
+    "label": "string"
+   },
+   "example": "<UptimeBar label=\"RPC\" days={days}/>",
+   "cssClass": "nui-uptime"
+  },
+  {
+   "name": "OutcomeButton",
+   "group": "prediction",
+   "description": "Prediction outcome with implied price and selected state.",
+   "props": {
+    "label": "ReactNode",
+    "probability": "0-1",
+    "selected": "boolean",
+    "onClick": "fn",
+    "tone": "'positive'|'negative'|'neutral'"
+   },
+   "example": "<OutcomeButton label=\"Yes\" probability={0.63} selected/>",
+   "cssClass": "nui-outcome"
+  },
+  {
+   "name": "ProbabilityBar",
+   "group": "prediction",
+   "description": "Stacked outcome probabilities with legend.",
+   "props": {
+    "outcomes": "{label,probability,color?}[]",
+    "label": "string"
+   },
+   "example": "<ProbabilityBar label=\"Winner\" outcomes={outcomes}/>",
+   "cssClass": "nui-probbar"
+  },
+  {
+   "name": "CodeBlock",
+   "group": "content",
+   "description": "Code block with optional language tabs and copy.",
+   "props": {
+    "code": "string",
+    "snippets": "{label,code}[]",
+    "title": "ReactNode",
+    "language": "string",
+    "copyable": "boolean = true"
+   },
+   "example": "<CodeBlock snippets={[{label:'curl',code},{label:'JS',code:js}]}/>",
+   "cssClass": "nui-code"
+  },
+  {
+   "name": "SecretField",
+   "group": "content",
+   "description": "Masked API/viewing key with reveal toggle and copy.",
+   "props": {
+    "value": "string",
+    "visibleTail": "number = 4",
+    "label": "string"
+   },
+   "example": "<SecretField value={apiKey}/>",
+   "cssClass": "nui-secret"
+  },
+  {
+   "name": "Timeline",
+   "group": "content",
+   "description": "Activity feed with tones and times.",
+   "props": {
+    "items": "{title,time?,description?,tone?,icon?}[]"
+   },
+   "example": "<Timeline items={events}/>",
+   "cssClass": "nui-timeline"
+  },
+  {
+   "name": "Pagination",
+   "group": "content",
+   "description": "Numbered pagination with ellipsis; paginationRange() helper exported.",
+   "props": {
+    "page": "number",
+    "pages": "number",
+    "onChange": "fn"
+   },
+   "example": "<Pagination page={p} pages={8} onChange={setP}/>",
+   "cssClass": "nui-pagination"
+  },
+  {
+   "name": "Tooltip",
+   "group": "content",
+   "description": "Hover/focus tooltip; Escape dismisses.",
+   "props": {
+    "content": "ReactNode",
+    "children": "single focusable element",
+    "side": "'top'|'bottom'"
+   },
+   "example": "<Tooltip content=\"Max extractable value\"><button>MEV</button></Tooltip>",
+   "cssClass": "nui-tooltip"
+  },
+  {
+   "name": "InfoTip",
+   "group": "content",
+   "description": "Small (i) button with a tooltip for term explanations.",
+   "props": {
+    "content": "ReactNode",
+    "label": "string"
+   },
+   "example": "<InfoTip content=\"Annual percentage rate\"/>",
+   "cssClass": "nui-infotip"
+  },
+  {
+   "name": "Disclosure",
+   "group": "content",
+   "description": "FAQ/advanced settings accordion on native <details>.",
+   "props": {
+    "summary": "ReactNode",
+    "defaultOpen": "boolean"
+   },
+   "example": "<Disclosure summary=\"Rules\">…</Disclosure>",
+   "cssClass": "nui-disclosure"
+  },
+  {
+   "name": "FileDrop",
+   "group": "forms",
+   "description": "Drag-and-drop file input with size validation.",
+   "props": {
+    "onFiles": "(files:File[])=>void",
+    "accept": "string",
+    "maxSize": "bytes",
+    "multiple": "boolean",
+    "label": "ReactNode",
+    "hint": "ReactNode"
+   },
+   "example": "<FileDrop accept=\".csv\" onFiles={importCsv}/>",
+   "cssClass": "nui-filedrop"
+  },
+  {
+   "name": "Drawer",
+   "group": "overlays",
+   "description": "Side sheet on native <dialog> (mobile nav, order details).",
+   "props": {
+    "open": "boolean",
+    "onClose": "fn",
+    "title": "ReactNode",
+    "side": "'left'|'right'",
+    "footer": "ReactNode"
+   },
+   "example": "<Drawer open={o} onClose={close} title=\"Repay\">…</Drawer>",
+   "cssClass": "nui-drawer"
+  },
+  {
+   "name": "SubNav",
+   "group": "navigation",
+   "description": "Section navigation inside a product (links, not tabs).",
+   "props": {
+    "items": "{label,href,current?,badge?}[]",
+    "aria-label": "string",
+    "renderLink": "router adapter"
+   },
+   "example": "<SubNav aria-label=\"DEX\" items={items}/>",
+   "cssClass": "nui-subnav"
+  },
+  {
+   "name": "Identicon",
+   "group": "content",
+   "description": "Deterministic avatar or abstract artwork from an address/id.",
+   "props": {
+    "value": "string",
+    "size": "number = 32",
+    "variant": "'grid'|'art'",
+    "label": "string"
+   },
+   "example": "<Identicon value={address} variant=\"art\" size={200}/>",
+   "cssClass": "nui-identicon"
+  },
+  {
+   "name": "NFTCard",
+   "group": "content",
+   "description": "NFT card with artwork, price, badge and stretched link; generated fallback art.",
+   "props": {
+    "name": "string",
+    "collection": "string",
+    "image": "string",
+    "seed": "string",
+    "price": "ReactNode",
+    "meta": "ReactNode",
+    "badge": "ReactNode",
+    "href": "string"
+   },
+   "example": "<NFTCard name=\"Punk #101\" collection=\"Punks\" price=\"2.4 ZEC\" href={…}/>",
+   "cssClass": "nui-nft"
+  },
+  {
+   "name": "BatchPayments",
+   "group": "payments",
+   "description": "Payroll/airdrop review table: per-row validation, totals, privacy per recipient.",
+   "props": {
+    "rows": "PaymentRow[]",
+    "onRemove": "(i)=>void",
+    "decimals": "number = 8",
+    "symbol": "string",
+    "network": "ZcashNetwork",
+    "statuses": "TxState[]",
+    "actions": "ReactNode"
+   },
+   "example": "<BatchPayments rows={rows} statuses={statuses}/>",
+   "cssClass": "nui-batch"
+  },
+  {
+   "name": "BatchPaymentTable",
+   "group": "payments",
+   "description": "Controlled payroll workflow with CSV paste import, append/replace modes, row removal, validation and totals.",
+   "props": {
+    "rows": "PaymentRow[]",
+    "onChange": "(rows:PaymentRow[])=>void",
+    "importMode": "'replace'|'append' = 'replace'",
+    "showImport": "boolean = true",
+    "decimals": "number = 8",
+    "symbol": "string",
+    "network": "ZcashNetwork",
+    "statuses": "TxState[]",
+    "actions": "ReactNode"
+   },
+   "example": "<BatchPaymentTable rows={rows} onChange={setRows} importMode=\"append\"/>",
+   "cssClass": "nui-batch-table"
+  },
+  {
+   "name": "usePrivacyLevel",
+   "group": "zcash",
+   "description": "Localized label+description for a privacy level.",
+   "props": {
+    "level": "'shielded'|'confidential'|'public'"
+   },
+   "example": "const meta = usePrivacyLevel('shielded')"
+  }
+ ],
+ "utils": {
+  "units": [
+   "formatUnits(value, decimals)",
+   "parseUnits(str, decimals) → bigint",
+   "tryParseUnits",
+   "zatoshiToZec",
+   "zecToZatoshi",
+   "formatAmount(value, {decimals, exact, maxFractionDigits, compact})",
+   "formatFiat(n, currency)",
+   "formatPercent",
+   "formatCompact",
+   "sanitizeAmountInput(str, decimals)",
+   "ZEC_DECIMALS",
+   "ZATOSHI_PER_ZEC"
+  ],
+  "address": [
+   "parseAddress(addr) → {kind, network, shielded, checksum} | null",
+   "isValidAddress(addr, network?)",
+   "isShieldedAddress",
+   "addressKind",
+   "truncateMiddle(str, head, tail)",
+   "verifyBech32",
+   "ADDRESS_KIND_LABEL"
+  ],
+  "memo": [
+   "MEMO_MAX_BYTES",
+   "memoByteLength",
+   "isMemoValid",
+   "truncateMemo",
+   "encodeMemoBase64Url"
+  ],
+  "zip321": [
+   "buildPaymentUri(request | request[])"
+  ],
+  "theme": [
+   "defineTheme({name, extends, tokens})",
+   "checkContrast(theme)",
+   "contrastRatio(fg, bg)",
+   "toCssVars(map)"
+  ],
+  "constants": [
+   "PRIVACY_LEVELS",
+   "DEFAULT_DISCLAIMER"
+  ],
+  "charts": [
+   "niceTicks(min,max,count)"
+  ],
+  "content": [
+   "paginationRange(page,pages,siblings)"
+  ],
+  "payments": [
+   "parseCsv(text)",
+   "parsePaymentCsv(text) → PaymentRow[]",
+   "validatePayments(rows,{decimals,network}) → {rows,total,valid,invalid}"
+  ],
+  "i18n": [
+   "en",
+   "zh",
+   "locales",
+   "NuiMessages"
+  ]
+ }
+}

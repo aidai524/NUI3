@@ -1,0 +1,22 @@
+{
+  "name": "@nui3/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for NUI3, the UI kit for Zcash ecosystem apps. CSS variables, DTCG JSON, Tailwind preset and theme helpers.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./tailwind": "./dist/tailwind.js",
+    "./source.json": "./src/tokens.json"
+  },
+  "files": ["dist", "src/tokens.json"],
+  "sideEffects": ["*.css"],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test test/*.test.js"
+  }
+}

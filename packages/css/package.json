@@ -1,0 +1,47 @@
+{
+  "name": "@nui3/css",
+  "version": "0.1.0",
+  "description": "Framework-agnostic CSS for NUI3, the UI kit for Zcash ecosystem apps. Plain HTML classes, themable through CSS variables.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/nui3.css"
+    },
+    "./nui3.css": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/nui3.css"
+    },
+    "./components.css": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/components.css"
+    },
+    "./fonts.css": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/fonts.css"
+    },
+    "./tokens.css": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/tokens.css"
+    },
+    "./components/*": "./dist/components/*",
+    "./fonts/*": "./dist/fonts/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@nui3/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@fontsource/ibm-plex-mono": "5.3.0"
+  }
+}

@@ -1,0 +1,23 @@
+# NUI3
+
+> UI kit for Zcash ecosystem apps (wallets, bridges, DEX, lending, perps, explorers, payroll). z.cash visual language: warm paper, plum ink, one gold accent, serif headlines, square corners, no shadows. Themable through CSS variables; React components plus framework-agnostic CSS.
+
+Read AGENTS.md first: it contains hard rules (privacy wording, amounts as bigint, one solid button per view, trademark disclaimer) that override any example.
+
+## Docs
+
+- [AGENTS.md](AGENTS.md): rules, component-to-task map, page recipes, customization
+- [docs/components.json](docs/components.json): every component with props, CSS class and example
+- [packages/tokens/src/tokens.json](packages/tokens/src/tokens.json): design tokens (DTCG), themes paper / night, contrast pairs
+- [README.md](README.md): install, theming, package layout
+
+## Packages
+
+- [@nui3/react](packages/react): React components and Zcash utils (addresses, amounts, memos, ZIP-321)
+- [@nui3/css](packages/css): `nui-*` classes for any framework; `nui3.css` (full) or `components.css` (embeddable)
+- [@nui3/tokens](packages/tokens): CSS variables, JSON, Tailwind preset, `defineTheme`, `checkContrast`
+
+## Examples
+
+- [examples/dapp](examples/dapp): React — Swap, Bridge, Receive, Lending, Explorer, three themes
+- [examples/html](examples/html/index.html): plain HTML with `@nui3/css` only
