@@ -63,7 +63,8 @@ function Index() {
   const t = useT();
   return (
     <>
-      <Eyebrow>NUI3 · {manifest.components.length} {t('components', '个组件')}</Eyebrow>
+      <Button href={link('build')} arrow={false} size="sm">← {t('Build overview', '构建概览')}</Button>
+      <div style={{ marginTop: 24 }}><Eyebrow>NUI3 · {manifest.components.length} {t('components', '个组件')}</Eyebrow></div>
       <Display size="s" style={{ margin: '14px 0' }}>{t('Build a Zcash app in an afternoon.', '一个下午搭出 Zcash 应用。')}</Display>
       <Lead>{t('Tokens, CSS and React components with themes, i18n and live-data primitives. Click any component for a live demo, props and usage.', '设计变量、CSS 与 React 组件，内置主题、国际化和实时数据原语。点击任意组件查看演示、属性和用法。')}</Lead>
       <GuideCards />

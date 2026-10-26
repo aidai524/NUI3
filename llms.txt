@@ -1,6 +1,6 @@
 # NUI3
 
-> UI kit for Zcash ecosystem apps (wallets, bridges, DEX, lending, perps, explorers, payroll). z.cash visual language: warm paper, plum ink, one gold accent, serif headlines, square corners, no shadows. Themable through CSS variables; React components plus framework-agnostic CSS.
+> Open UI ecosystem for privacy-native applications. NUI3 provides composable components, design tokens, themes and application references for Noir and Zcash ecosystem builders. z.cash visual language: warm paper, plum ink, one gold accent, serif headlines, square corners, no shadows. Themable through CSS variables; React components plus framework-agnostic CSS.
 
 Read AGENTS.md first: it contains hard rules (privacy wording, amounts as bigint, one solid button per view, trademark disclaimer) that override any example.
 
@@ -12,6 +12,16 @@ Read AGENTS.md first: it contains hard rules (privacy wording, amounts as bigint
 - [README.md](README.md): install, theming, package layout
 - [docs/getting-started.md](docs/getting-started.md): frontend workspace/npm setup, React and CSS usage, themes, i18n and validation
 - [docs/ai-integration.md](docs/ai-integration.md): agent context, persistent rules, prompt templates and verification workflow
+
+## Ecosystem portal
+
+- `#/overview`: protocol model, mission, vision, technology stack and roadmap
+- `#/infrastructure`: public infrastructure references and availability labels
+- `#/apps`: application catalogue with phase filters; `#/apps/:id` adds phase detail
+- `#/build`: installation, components, tokens, AI integration and examples
+- `#/extend`: themes, components, adapters and integration contracts
+- `#/ecosystem`: reference applications; sample interfaces are not production deployments
+- `#/contribute`: code contributions, RFCs, roadmap and governance status
 
 ## Packages
 

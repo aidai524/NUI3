@@ -1,10 +1,23 @@
 # NUI3
 
-Zcash 生态 dApp 的 UI 库。视觉语言来自 z.cash（研究见 `../zcash-design-system/`，原型见 `../prototype/`），组件覆盖 Noir 规划里的 Bridge、TokenDeploy、DEX、Explorer、Lending 等场景。
+**面向隐私原生应用的开放 UI 生态。** NUI3 为 Noir 与 Zcash 生态建设者提供可组合的组件、设计变量、主题和应用参考，让团队可以基于共同底座构建、扩展并分享自己的产品。
 
-- **三层可定制**：基础色 → 语义 token → 组件。组件只读语义变量，换主题、换强调色、改圆角都不用碰组件代码。
-- **两种用法**：`@nui3/react`（React 组件 + 工具函数），或只用 `@nui3/css`（`nui-*` 类，Vue / Svelte / 纯 HTML 都能用）。
+- **Build**：使用组件、设计令牌、主题和完整应用参考快速起步。
+- **Extend**：通过命名主题、`nui-*` 原语和数据／基础设施适配器扩展系统。
+- **Ecosystem**：浏览钱包、DEX、Lending 等参考应用；所有演示均明确标注为原型与示例数据。
+- **Contribute**：通过 GitHub Issue、RFC 和 Pull Request 参与组件、标准与路线图建设。
 - **给 AI 用**：[`AGENTS.md`](AGENTS.md)（硬规则 + 场景配方）、[`docs/components.json`](docs/components.json)（组件清单）、[`llms.txt`](llms.txt)。
+
+## 生态门户
+
+在线站点：[https://nui3.pages.dev/](https://nui3.pages.dev/)。
+
+- **Overview**：协议定位、使命愿景、技术栈和四阶段路线图。
+- **Public Infrastructure**：Explorer、RPC 与规划中的 Indexer；展示用途、状态和参考入口。
+- **Apps**：按 Phase 1–4 筛选应用，并在应用详情中查看阶段时间线、原型状态和数据说明。
+- **Build / Extend / Ecosystem / Contribute**：分别承担开发起步、系统扩展、案例展示与开放参与。
+
+协议内容以当前仓库中的参考模型为准：Noir 在 NEAR 上执行，状态锚定到 Zcash，并不宣称具备 ZK Rollup 的全部安全保证。示例站点不是生产服务，也不代表已有第三方部署。
 
 ## 包
 
@@ -18,7 +31,7 @@ Zcash 生态 dApp 的 UI 库。视觉语言来自 z.cash（研究见 `../zcash-d
 
 - **前端开发者**：[`docs/getting-started.md`](docs/getting-started.md)——workspace / npm 安装、React 与纯 CSS 引入、主题、国际化、金额工具和验证命令。
 - **AI 编码代理**：[`docs/ai-integration.md`](docs/ai-integration.md)——上下文文件、持久项目规则、可复制的提示词、领域约束与验证闭环。
-- **在线版本**：示例应用 `#/docs/getting-started` 与 `#/docs/ai-integration`。
+- **在线版本**：[前端接入](https://nui3.pages.dev/#/docs/getting-started)、[AI 接入](https://nui3.pages.dev/#/docs/ai-integration) 与 [组件文档](https://nui3.pages.dev/#/docs)。
 
 ## 快速开始
 
@@ -76,7 +89,7 @@ pnpm dev            # examples/dapp → http://localhost:5173 （?theme=night|ja
 
 ## 当前进度与路线图
 
-已完成 Phase 2 的 `OrderBook`、`PositionTable`、`LeverageSlider`、`PriceChart`，以及 `BatchPaymentTable`、`NFTCard`、`BondingCurveChart`。`examples/dapp` 已包含全部组件的在线文档和 11 类产品示例。
+已完成 Phase 2 的 `OrderBook`、`PositionTable`、`LeverageSlider`、`PriceChart`，以及 `BatchPaymentTable`、`NFTCard`、`BondingCurveChart`。`examples/dapp` 已包含全部组件的在线文档、12 类产品示例，以及按 Overview、Public Infrastructure、Apps、Build、Extend、Ecosystem、Contribute 组织的生态门户。
 
 剩余工作：
 
