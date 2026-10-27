@@ -43,7 +43,7 @@ function Projects() {
   return (
     <>
       <ChipGroup aria-label={t('Status', '状态')} value={tab} onChange={setTab} options={[{ value: 'live', label: t('Live', '进行中') }, { value: 'upcoming', label: t('Upcoming', '即将开始') }, { value: 'ended', label: t('Ended', '已结束') }]} />
-      <Grid cols={2} style={{ marginTop: 20 }}>
+      <Grid cols={2}>
         {rows.map((p) => (
           <Card key={p.id} interactive>
             <Cluster justify="space-between">

@@ -207,7 +207,7 @@ export default function Product({ path }: ProductProps) {
   return (
     <ProductShell product="perps" page={page ?? ''} compact={!page} title={!page ? t('Perpetual futures', '永续合约') : undefined} lead={!page ? undefined : t('Leveraged trading with confidential positions on Noir.', '在 Noir 上以机密仓位进行杠杆交易。')}>
       {body}
-      {!page && <Alert tone="warning" title={t('Leverage risk', '杠杆风险')} style={{ marginTop: 20 }}>{t('Leveraged positions can be liquidated quickly. Only trade with funds you can afford to lose. Positions are confidential on Noir; the underlying venue is public.', '杠杆仓位可能很快爆仓，请只用可承受损失的资金。仓位在 Noir 上是机密的，底层交易场所是公开的。')}</Alert>}
+      {!page && <Alert tone="warning" title={t('Leverage risk', '杠杆风险')}>{t('Leveraged positions can be liquidated quickly. Only trade with funds you can afford to lose. Positions are confidential on Noir; the underlying venue is public.', '杠杆仓位可能很快爆仓，请只用可承受损失的资金。仓位在 Noir 上是机密的，底层交易场所是公开的。')}</Alert>}
     </ProductShell>
   );
 }

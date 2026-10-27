@@ -108,7 +108,7 @@ function Overview() {
         </Grid>
       </section>
 
-      <Alert tone="warning" title={t('Privacy needs precise language.', '隐私表述必须准确。')}>
+      <Alert tone="warning" title={t('Privacy needs precise language.', '隐私表述必须准确。')} style={{ marginTop: 32 }}>
         {t('Shielded Zcash, confidential Noir execution and public external networks are different states. Interfaces must explain where privacy changes.', 'Zcash 屏蔽池、Noir 机密执行和公开外部网络是不同状态；界面必须说明隐私在何处发生变化。')}
       </Alert>
     </>
@@ -141,7 +141,7 @@ function Infrastructure() {
           <p className="nui-text-small nui-text-secondary">{t('No public API is currently specified in this repository.', '当前仓库尚未定义公共 API。')}</p>
         </Card>
       </Grid>
-      <Section tone="navy">
+      <Section tone="navy" style={{ marginTop: 32 }}>
         <Eyebrow accent>{t('Build on shared foundations', '基于共享底座构建')}</Eyebrow>
         <Display as="h2" size="s" style={{ margin: '14px 0 20px', color: 'inherit' }}>{t('Start with the interface. Connect your own infrastructure.', '从界面开始，连接自己的基础设施。')}</Display>
         <Button href={link('build')}>{t('Developer quickstart', '开发者快速开始')}</Button>
@@ -186,7 +186,7 @@ function AppDetail({ product }: { product: ProductMeta }) {
           <Button variant="solid" href={link(product.id)} style={{ marginTop: 24 }}>{t('Open prototype', '打开原型')}</Button>
         </Card>
       </Grid>
-      <Alert tone="info" title={t('Prototype, not a production launch', '原型，而非正式上线')}>
+      <Alert tone="info" title={t('Prototype, not a production launch', '原型，而非正式上线')} style={{ marginTop: 32 }}>
         {t('This phase timeline organizes the reference roadmap. It does not claim that previous phases or production services are complete.', '此阶段时间线用于组织参考路线图，不代表此前阶段或生产服务已经完成。')}
       </Alert>
     </>
@@ -265,7 +265,7 @@ function Ecosystem() {
       </PageIntro>
       <Alert tone="info" title={t('Reference ecosystem', '参考生态')}>{t('These are NUI3 application references with sample data, not claims of third-party production deployments.', '以下是使用示例数据的 NUI3 应用参考，不代表第三方生产环境部署。')}</Alert>
       <Grid cols={3} style={{ marginTop: 28 }}>{featured.map((product) => <AppCard key={product.id} product={product} />)}</Grid>
-      <Section tone="plum">
+      <Section tone="plum" style={{ marginTop: 32 }}>
         <Eyebrow accent>{t('Your project belongs here', '你的项目也可以加入')}</Eyebrow>
         <Display as="h2" size="s" style={{ margin: '14px 0 20px', color: 'inherit' }}>{t('Build it. Extend it. Share it.', '构建它，扩展它，分享它。')}</Display>
         <Button href={link('contribute')}>{t('Contribute to the ecosystem', '参与生态建设')}</Button>

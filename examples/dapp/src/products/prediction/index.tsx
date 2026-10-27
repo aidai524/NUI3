@@ -41,7 +41,7 @@ function MarketsPage() {
   const rows = MARKETS.filter((m) => (cat === 'All' || m.category === cat) && (!q || m.question.toLowerCase().includes(q.toLowerCase())));
   return (
     <>
-      <Cluster justify="space-between" style={{ marginBottom: 20 }}>
+      <Cluster justify="space-between">
         <ChipGroup aria-label={t('Category', '分类')} value={cat} onChange={setCat} options={CATS.map((c) => ({ value: c, label: c === 'All' ? t('All', '全部') : c }))} />
         <SearchInput label={t('Search markets', '搜索市场')} value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ('')} style={{ width: 240 }} />
       </Cluster>
@@ -141,7 +141,7 @@ function Portfolio() {
   ];
   return (
     <>
-      <Stats divided style={{ marginBottom: 24 }}>
+      <Stats divided>
         <Stat size="sm" label={t('Position value', '持仓价值')} value={usd(positions.reduce((s, p) => s + p.shares * p.current, 0))} />
         <Stat size="sm" label={t('Unrealized PnL', '未实现盈亏')} value={<PnL value={positions.reduce((s, p) => s + p.shares * (p.current - p.avg), 0)} />} />
         <Stat size="sm" label={t('Claimable', '可领取')} value={usd(1240)} />
@@ -157,7 +157,7 @@ function Portfolio() {
           { key: 'pnl', header: 'PnL', numeric: true, cell: (p) => <PnL value={p.shares * (p.current - p.avg)} percent={((p.current - p.avg) / p.avg) * 100} />, sortValue: (p) => p.shares * (p.current - p.avg) },
         ]}
       />
-      <Cluster gap={6} style={{ marginTop: 20 }}>
+      <Cluster gap={6}>
         <Button variant="solid" onClick={() => toast({ title: t('Winnings claimed', '收益已领取'), description: usd(1240), tone: 'positive' })}>{t('Claim winnings', '领取收益')}</Button>
         <Button href={link('lending')}>{t('Borrow USDC to trade', '借入 USDC 交易')}</Button>
       </Cluster>

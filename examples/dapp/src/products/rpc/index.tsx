@@ -62,7 +62,7 @@ function Keys() {
   const [keys, setKeys] = useState([{ id: 'k1', name: 'NoirWallet production', key: 'nui_live_9f2c41d0e7a86b35c1d94e0f2a7b6c8d', scopes: 'read', created: '2026-08-12', last: '2 min ago' }]);
   return (
     <>
-      <Cluster justify="space-between" style={{ marginBottom: 20 }}>
+      <Cluster justify="space-between">
         <p className="nui-text-secondary" style={{ maxWidth: '60ch' }}>{t('Keys authenticate API and lightwalletd access. Keep them server-side; rotate them quarterly.', '密钥用于 API 和 lightwalletd 访问鉴权。请保存在服务端，并每季度轮换。')}</p>
         <Button variant="solid" onClick={() => setCreate(true)}>{t('Create key', '创建密钥')}</Button>
       </Cluster>

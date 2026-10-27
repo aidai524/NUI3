@@ -37,7 +37,7 @@ function Explore() {
   const items = ITEMS.filter((x) => !q || x.name.toLowerCase().includes(q.toLowerCase())).sort((a, b) => (sort === 'price' ? a.price - b.price : b.last - a.last));
   return (
     <>
-      <Grid cols={3} style={{ marginBottom: 28 }}>
+      <Grid cols={3}>
         {COLLECTIONS.map((c) => (
           <Card key={c.id} interactive>
             <Cluster justify="space-between">
@@ -57,7 +57,7 @@ function Explore() {
           </Card>
         ))}
       </Grid>
-      <Cluster justify="space-between" style={{ marginBottom: 20 }}>
+      <Cluster justify="space-between">
         <ChipGroup aria-label={t('Sort', '排序')} value={sort} onChange={setSort} options={[{ value: 'price', label: t('Price low → high', '价格从低到高') }, { value: 'recent', label: t('Recent sales', '最近成交') }]} />
         <SearchInput label={t('Search NFTs', '搜索 NFT')} value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ('')} style={{ width: 220 }} />
       </Cluster>
@@ -66,7 +66,7 @@ function Explore() {
           <NFTCard key={x.id} name={x.name} collection={x.collectionName} seed={x.seed} href={link('nft', 'item', x.id)} price={`${x.price.toFixed(2)} ZEC`} meta={x.listed ? t('Listed', '已挂单') : t('Not listed', '未挂单')} badge={x.listed ? <Badge tone="accent">{t('For sale', '出售中')}</Badge> : undefined} />
         ))}
       </Grid>
-      <div style={{ marginTop: 24 }}><Pagination page={page} pages={6} onChange={setPage} /></div>
+      <Pagination page={page} pages={6} onChange={setPage} />
     </>
   );
 }
@@ -76,13 +76,13 @@ function Collection({ id }: { id: string }) {
   const c = COLLECTIONS.find((x) => x.id === id) ?? COLLECTIONS[0]!;
   return (
     <>
-      <Stats divided style={{ marginBottom: 24 }}>
+      <Stats divided>
         <Stat size="sm" label={t('Floor', '地板价')} value={`${c.floor} ZEC`} />
         <Stat size="sm" label={t('Items', '数量')} value={c.items} />
         <Stat size="sm" label={t('Owners', '持有者')} value={Math.round(c.items * 0.62)} />
         <Stat size="sm" label={t('Volume', '总成交量')} value={compactUsd(c.volume)} />
       </Stats>
-      <Panel title={t('Floor price · 30 days', '地板价 · 30 天')} style={{ marginBottom: 24 }}>
+      <Panel title={t('Floor price · 30 days', '地板价 · 30 天')}>
         <LineChart label={t('Floor price', '地板价')} series={[{ name: 'floor', data: walk(c.seed, 30, c.floor, 0.06, 0.004), area: true }]} labels={days} height={220} yFormat={(v) => `${v.toFixed(2)} ZEC`} />
       </Panel>
       <Grid cols={4}>

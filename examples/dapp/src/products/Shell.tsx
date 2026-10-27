@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Breadcrumb, Display, Eyebrow, Lead, Shell, SubNav } from '@nui3/react';
+import { Breadcrumb, Display, Eyebrow, Lead, Shell, Stack, SubNav } from '@nui3/react';
 import { useSettings, useT } from '../settings';
 import { GROUPS, link, productById, type ProductId } from './meta';
 
@@ -49,7 +49,7 @@ export function ProductShell({ product, page, title, lead, aside, crumbs, compac
         aria-label={L(meta.name)}
         items={meta.pages.filter((s) => !s.hidden).map((s) => ({ label: L(s.label), href: link(product, s.id), current: s.id === page }))}
       />
-      <div style={{ paddingTop: 28 }}>{children}</div>
+      <Stack gap={6} style={{ paddingTop: 28 }}>{children}</Stack>
     </Shell>
   );
 }

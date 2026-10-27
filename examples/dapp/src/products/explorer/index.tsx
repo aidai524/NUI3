@@ -61,8 +61,8 @@ function Overview() {
   const latest = BLOCKS.slice(0, 6);
   return (
     <>
-      <div style={{ marginBottom: 24 }}><Search /></div>
-      <Stats divided style={{ marginBottom: 24 }}>
+      <Search />
+      <Stats divided>
         <Stat size="sm" label={t('Block height', '区块高度')} value={<LiveValue value={height} format={(v) => v.toLocaleString('en-US')} />} />
         <Stat size="sm" label={t('ZEC price', 'ZEC 价格')} value={<LiveValue value={price} format={(v) => `$${v.toFixed(2)}`} />} />
         <Stat size="sm" label={t('Shielded pool', '屏蔽池占比')} value="31.2" unit="%" />
@@ -94,7 +94,7 @@ function Overview() {
           </Panel>
         </Side>
       </Split>
-      <Alert tone="shielded" title={t('What the explorer shows', '浏览器展示范围')} style={{ marginTop: 20 }}>
+      <Alert tone="shielded" title={t('What the explorer shows', '浏览器展示范围')}>
         {t('Only public data or data disclosed with a viewing key. Shielded senders, recipients, amounts and memos are never displayed.', '仅展示公开数据或经查看密钥披露的数据。屏蔽交易的发送方、接收方、金额和备注不会显示。')}
       </Alert>
     </>
@@ -110,10 +110,8 @@ function Txs() {
   return (
     <>
       <ChipGroup aria-label={t('Type', '类型')} value={kind} onChange={(v) => { setKind(v); setPage(1); }} options={[{ value: 'all', label: t('All', '全部') }, ...kinds.map((k) => ({ value: k, label: k }))]} />
-      <div style={{ marginTop: 20 }}>
-        <DataTable rows={rows} rowKey={(r) => r.hash} columns={txColumns} defaultSort={{ key: 'height', direction: 'descending' }} />
-      </div>
-      <div style={{ marginTop: 16 }}><Pagination page={page} pages={8} onChange={setPage} /></div>
+      <DataTable rows={rows} rowKey={(r) => r.hash} columns={txColumns} defaultSort={{ key: 'height', direction: 'descending' }} />
+      <Pagination page={page} pages={8} onChange={setPage} />
     </>
   );
 }
@@ -322,7 +320,7 @@ function Anchors() {
   const t = useT();
   return (
     <>
-      <Alert tone="info" title={t('State anchoring, not a ZK rollup', '状态锚定，而非 ZK Rollup')} style={{ marginBottom: 20 }}>
+      <Alert tone="info" title={t('State anchoring, not a ZK rollup', '状态锚定，而非 ZK Rollup')}>
         {t('Noir commits its state root to Zcash. Execution runs on NEAR; anchoring gives an auditable checkpoint, not full rollup security.', 'Noir 将状态根提交到 Zcash。执行在 NEAR 上进行；锚定提供可审计的检查点，而非完整的 Rollup 安全性。')}
       </Alert>
       <DataTable

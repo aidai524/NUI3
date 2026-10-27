@@ -85,7 +85,7 @@ function NewRun() {
   return (
     <>
       <Stepper orientation="horizontal" steps={[t('Recipients', '收款人'), t('Schedule', '排期'), t('Review', '核对'), t('Execute', '执行')].map((title, k) => ({ title, state: state(k) }))} />
-      <div style={{ marginTop: 28 }}>
+      <div>
         {step === 0 && (
           <Split>
             <Main>
@@ -133,7 +133,7 @@ function NewRun() {
           </>
         )}
       </div>
-      <Cluster justify="space-between" style={{ marginTop: 28 }}>
+      <Cluster justify="space-between">
         <Button disabled={step === 0 || step === 3} arrow={false} onClick={() => setStep((s) => s - 1)}>{t('Back', '上一步')}</Button>
         {step < 2 && <Button variant="outline" disabled={result.valid === 0 || result.invalid > 0} onClick={() => setStep((s) => s + 1)}>{t('Continue', '继续')}</Button>}
         {step === 2 && <Button variant="solid" onClick={execute}>{t('Sign & run payroll', '签名并发放')}</Button>}
@@ -162,7 +162,7 @@ function RunDetail({ id }: { id: string }) {
           <Button href={link('wallet', 'activity')}>{t('View in wallet', '在钱包中查看')}</Button>
         </Cluster>
       </Panel>
-      <div style={{ marginTop: 20 }}>
+      <div>
         <BatchPayments rows={PEOPLE.map((p) => ({ name: p.name, address: p.address, amount: p.amount, memo: p.memo || undefined }))} statuses={PEOPLE.map(() => run.status)} />
       </div>
     </>

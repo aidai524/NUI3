@@ -22,7 +22,7 @@ function Pools() {
   const pools = POOLS.filter((p) => !q || `${p.base}${p.quote}`.toLowerCase().includes(q.toLowerCase())).sort((a, b) => b[sort === 'volume' ? 'volume24h' : sort] - a[sort === 'volume' ? 'volume24h' : sort]);
   return (
     <>
-      <Stats divided style={{ marginBottom: 24 }}>
+      <Stats divided>
         <Stat size="sm" label={t('Total liquidity', '总流动性')} value={compactUsd(POOLS.reduce((s, p) => s + p.tvl, 0))} />
         <Stat size="sm" label={t('24h volume', '24h 成交')} value={compactUsd(POOLS.reduce((s, p) => s + p.volume24h, 0))} />
         <Stat size="sm" label={t('Pools', '池数量')} value={POOLS.length} />
@@ -186,7 +186,7 @@ function Tokens() {
   const [q, setQ] = useState('');
   return (
     <>
-      <SearchInput label={t('Search tokens', '搜索代币')} value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ('')} style={{ maxWidth: 320, marginBottom: 20 }} />
+      <SearchInput label={t('Search tokens', '搜索代币')} value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ('')} style={{ maxWidth: 320 }} />
       <DataTable
         rows={DEX_TOKENS.filter((x) => !q || `${x.symbol}${x.name}`.toLowerCase().includes(q.toLowerCase()))}
         rowKey={(x) => x.symbol}
@@ -199,7 +199,7 @@ function Tokens() {
           { key: 'chart', header: '7d', cell: (x) => <Sparkline data={apyHistory(x.seed)} /> },
         ]}
       />
-      <Alert tone="warning" title={t('Unverified tokens', '未认证代币')} style={{ marginTop: 20 }}>
+      <Alert tone="warning" title={t('Unverified tokens', '未认证代币')}>
         {t('Anyone can create a token. Check the contract before trading unverified assets.', '任何人都可以发币。交易未认证资产前请核对合约。')}
       </Alert>
     </>

@@ -182,7 +182,7 @@ function Activity() {
   const items = ACTIVITY_ITEMS.filter((x) => (kind === 'all' || x.kind === kind) && (!q || x.title.toLowerCase().includes(q.toLowerCase())));
   return (
     <>
-      <Cluster justify="space-between" style={{ marginBottom: 20 }}>
+      <Cluster justify="space-between">
         <ChipGroup aria-label={t('Activity type', '动态类型')} value={kind} onChange={(v) => { setKind(v); setPage(1); }} options={[{ value: 'all', label: t('All', '全部') }, { value: 'receive', label: t('Received', '收款') }, { value: 'send', label: t('Sent', '发送') }, { value: 'swap', label: t('Swap', '兑换') }, { value: 'bridge', label: t('Bridge', '跨链') }]} />
         <SearchInput label={t('Search activity', '搜索动态')} value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ('')} style={{ width: 220 }} />
       </Cluster>
