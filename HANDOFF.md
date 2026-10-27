@@ -1,6 +1,6 @@
 # NUI3 项目交接
 
-最后核验：2026-10-26  
+最后核验：2026-10-27
 当前分支：`main`  
 代码仓库：`https://github.com/aidai524/NUI3.git`  
 线上门户：`https://nui3.pages.dev/`
@@ -115,6 +115,8 @@ pnpm --filter nui3-dapp-example build
 
 - 使用 NUI3 组件或 `nui-*` 类；样式使用语义化 `--nui-*` tokens。
 - 不用硬编码颜色、字体、圆角或阴影，不引入另一套 UI kit。
+- 产品页内容由 `products/Shell.tsx` 的 `Stack gap={6}` 统一提供 24 px 纵向间距；门户相邻内容区块使用 32 px 间距，不再为直接子元素重复添加零散外边距。表单、卡片和双栏内部节奏保持独立。
+- `Section tone="navy" | "plum"` 中的辅助文字使用深色背景对应的夜色文本 token；不要为单个页面写死浅色。相关覆盖位于 `packages/css/src/components/foundation.css`。
 - 每个视图只保留一个 solid 主按钮。
 - 金额使用 bigint 基础单位，输入过程中保留十进制字符串。
 - 不混淆 `shielded`、`confidential`、`public`；公开页面不得泄露 shielded 信息。
@@ -126,13 +128,15 @@ pnpm --filter nui3-dapp-example build
 截至本次交接：
 
 - tokens：5 项测试通过。
-- CSS：5 项测试通过。
+- CSS：6 项测试通过，包含深色 Section 辅助文字颜色回归用例。
 - React：52 项测试通过。
-- 合计：62 项测试通过。
-- 示例站 TypeScript 检查与 Vite 生产构建通过。
+- 合计：63 项测试通过。
+- packages 完整构建、示例站 TypeScript 检查与 Vite 生产构建通过。
 - 首页、门户页面、Apps Phase 筛选和应用详情已在浏览器核验。
-- 首页在 390 px 视口下无横向溢出，五层技术栈正确重排。
-- Cloudflare 生产首页返回 HTTP 200，新首页内容已线上核验。
+- Lending 等 4 处门户相邻区块实测为 32 px；Explorer、Perps、DEX、LaunchPad、NFT 等产品页相邻内容区块实测为 24 px。
+- Paper 与 Night 下，深色 Section 辅助文字与 navy 背景的实测对比度均为 10.03:1。
+- 首页及本次抽查页面在 390 px 视口下无页面级横向溢出，五层技术栈正确重排，表格保留容器内滚动。
+- Cloudflare 生产首页和受影响页面已线上核验。
 
 提交前至少运行：
 
@@ -178,6 +182,9 @@ curl -fsS -o /dev/null -w '%{http_code}\n' https://nui3.pages.dev/
 
 ## 8. 最近提交
 
+- `60b813a` — 修复 Paper 主题下深色 Section 辅助文字对比度，并增加 CSS 回归测试。
+- `e644dd6` — 统一门户 32 px、产品页 24 px 的页面级纵向间距。
+- `164f94c` — 增加维护者 handoff 文档。
 - `75ac44c` — 首页改为使命、愿景和建设者价值优先。
 - `d25a695` — 增加生态门户信息架构、Apps 阶段和开发者入口。
 - `0a799f4` — 增加前端接入与 AI 接入文档。
