@@ -100,7 +100,7 @@
   .nui-section--plum { background: var(--nui-color-plum); color: var(--nui-color-white); }
   .nui-section--navy { background: var(--nui-color-navy); color: var(--nui-color-white); }
   :is(.nui-section--plum, .nui-section--navy) :is(.nui-display, .nui-heading) { color: inherit; }
-  :is(.nui-section--plum, .nui-section--navy) :is(.nui-lead, .nui-eyebrow) { color: var(--nui-color-night-text-2); }
+  :is(.nui-section--plum, .nui-section--navy) :is(.nui-lead, .nui-eyebrow, .nui-text-secondary, .nui-text-muted) { color: var(--nui-color-night-text-2); }
   :is(.nui-section--plum, .nui-section--navy) .nui-eyebrow--accent { color: var(--nui-color-gold); }
 
   .nui-stack { display: flex; flex-direction: column; gap: var(--nui-stack-gap, var(--nui-space-4)); }

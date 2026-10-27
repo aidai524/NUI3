@@ -36,6 +36,15 @@ test('no box-shadow used as elevation', () => {
   }
 });
 
+test('brand sections override secondary and muted text for dark backgrounds', () => {
+  const source = readFileSync(new URL('foundation.css', componentDir), 'utf8');
+  const rule = source.match(/:is\(\.nui-section--plum, \.nui-section--navy\) :is\(([^)]+)\) \{ color: var\(--nui-color-night-text-2\); \}/);
+  assert.ok(rule, 'missing dark-section typography rule');
+  for (const className of ['.nui-lead', '.nui-eyebrow', '.nui-text-secondary', '.nui-text-muted']) {
+    assert.ok(rule[1].includes(className), `${className} keeps light-theme text on a dark section`);
+  }
+});
+
 test('all classes are prefixed with nui-', () => {
   const selectors = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/@layer[^;{]*[;{]/g, '').replace(/url\([^)]*\)/g, '').replace(/"[^"]*"/g, '');
   const classes = new Set([...selectors.matchAll(/\.([a-z_][a-z0-9_-]*)(?=[^{}]*\{)/gi)].map((m) => m[1]));
